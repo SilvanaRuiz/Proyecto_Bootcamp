@@ -73,7 +73,7 @@ def obtener_imagen_ciudad(city):
     """
     Función para obtener una imagen de una ciudad usando la API de Unsplash.
     """
-    ACCESS_KEY = ACCESS_KEY
+    global ACCESS_KEY
     # Agregar "city" al término de búsqueda para especificar que queremos una imagen de la ciudad
     query = f"{city} city"
     url = f"https://api.unsplash.com/search/photos?query={query}&client_id={ACCESS_KEY}&per_page=1"
