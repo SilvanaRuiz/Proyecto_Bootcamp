@@ -1,8 +1,8 @@
 import pandas as pd
 from sqlalchemy import create_engine
-from connection  import get_connection
+from .connection  import get_connection
 import zipfile      
-from limpieza import extract_guest, extract_bathroom, extract_bed, extract_bedroom, extract_number_of_baths, extract_price
+from .limpieza import extract_guest, extract_bathroom, extract_bed, extract_bedroom, extract_number_of_baths, extract_price
 
 
 def extraer_datos_y_unir():
