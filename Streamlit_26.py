@@ -221,15 +221,13 @@ def analis_exploratorio():
         <h2 style='text-align: center; color: #333333; font-weight: bold;'>Información General</h2>
         <p style='color: #4a4a4a; line-height: 1.6;'>
             
-Esta sección te permite explorar información sobre los alojamientos en Airbnb a través de gráficos que examinan diversos aspectos del mercado en la ciudad que has seleccionado
+Esta sección te permite explorar información sobre los alojamientos de Airbnb mediante gráficos que analizan distintos aspectos del mercado en la ciudad seleccionada.
         </p>
         <p style='color: #4a4a4a; line-height: 1.6;'>
-            <b>Histogramas y gráficos de barras:</b> Estos gráficos muestran cómo están distribuidos los valores en cada variable, permitiendo detectar si siguen una distribución normal o si presentan sesgos, datos atípicos o asimetrías.
+            <b>Histogramas y gráficos de barras:</b> Estos gráficos revelan la distribución de valores en cada variable, facilitando la identificación de distribuciones normales, sesgos, valores atípicos y asimetrías.
         </p>
         <p style='color: #4a4a4a; line-height: 1.6;'>
-            <b>Gráficos de densidad:</b> Ayudan a visualizar las distribuciones de manera más detallada que los histogramas, lo cual es útil para variables numéricas continuas y para comparar distribuciones entre subgrupos.
-        </p>
-    </div>
+            <b>Gráficos de calor:</b> Visualizan la relación entre variables mediante colores, facilitando la detección de patrones, correlaciones y tendencias en los datos.
 """, unsafe_allow_html=True)
 
     #######################################################################
