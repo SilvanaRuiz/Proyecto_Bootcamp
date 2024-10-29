@@ -140,7 +140,7 @@ def inicio():
     """, unsafe_allow_html=True)
     
 
-def dashboard(df_limpio, ciudad_seleccionada):
+def dashboard(df_limpio,ciudad_seleccionada):
 
     st.title("📊 Dashboard de Airbnb Insights")
 
@@ -598,7 +598,7 @@ def main():
         inicio()
         
     elif page == "Dashboard" :
-        dashboard(df_limpio, ciudad seleccionada)
+        dashboard(df_limpio,ciudad_seleccionada)
 
     elif page== "Análisis Exploratorio":
         analis_exploratorio(ciudad_seleccionada)
