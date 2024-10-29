@@ -73,7 +73,7 @@ def obtener_imagen_ciudad(city):
     """
 
     try:
-        UNSPLASH_ACCESS_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
+        UNSPLASH_ACCESS_KEY = st.secrets.get("UNSPLASH_ACCESS_KEY")
     except KeyError:
         st.error("No se encontró la clave de API de Unsplash en los secretos de Streamlit.")
         return None
