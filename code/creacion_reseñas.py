@@ -14,12 +14,18 @@ def extraer_datos_y_unir_2():
     - pd.DataFrame: DataFrame combinado con los registros seleccionados.
     """
     # Leer el archivo CSV `resultados_nlp.csv` para obtener la lista de IDs
+    
+    resultados_path = os.path.abspath('../objetos/resultados_nlp.csv')
+    print("Ruta absoluta a 'resultados_nlp.csv':", resultados_path)
+    
     try:
-        resultados = pd.read_csv('../objetos/resultados_nlp.csv')
+        resultados = pd.read_csv(resultados_path)
         lista_ids = resultados['id_url'].tolist()
+        print("Archivo 'resultados_nlp.csv' cargado exitosamente.")
     except FileNotFoundError:
-        print("Error: No se encontró el archivo 'resultados_nlp.csv'.")
-        return None
+        print("Error: No se encontró el archivo 'resultados_nlp.csv' en la ruta especificada.")
+
+
 
     # Definir las columnas que queremos cargar desde la base de datos o desde el CSV de respaldo
     columnas = ['id_url', 'title', 'price', 'type_host', 'complete_data_list', 'city', 'number_reviews']
