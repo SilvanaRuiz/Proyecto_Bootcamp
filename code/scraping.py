@@ -308,7 +308,7 @@ print(len(new_urls_dicc))
 df = pd.DataFrame(columns=['title', 'city', 'guest_favorite', 'rating', 'number_reviews', 'type_host', 'hosting_time', 'price', 'all_reviews', 'complete_data_list', 'url', 'id_url'])
 
 n = 0
-for url, city in urls_dicc.items():
+for url, city in new_urls_dicc.items():
     n = n + 1
     guest_favorite, rating, number_reviews, type_host, hosting_time, all_reviews, title, complete_data_list, price, id = scraping_airbnb(url) # price,
     
