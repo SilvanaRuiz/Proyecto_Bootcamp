@@ -3,7 +3,7 @@ from sqlalchemy import create_engine, Column, String, Text
 from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.orm import sessionmaker, declarative_base
 import uuid
-from connection import get_connection  # Importar la función de conexión
+from .connection import get_connection  # Importar la función de conexión
 
 # Crear la base declarativa para el ORM de SQLAlchemy
 Base = declarative_base()
