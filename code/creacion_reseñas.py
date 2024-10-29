@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from .connection  import get_connection
 import zipfile      
 from .limpieza import extract_guest, extract_bathroom, extract_bed, extract_bedroom, extract_number_of_baths, extract_price
+import os 
 
 
 def extraer_datos_y_unir_2():
