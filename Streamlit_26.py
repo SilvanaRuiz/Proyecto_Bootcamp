@@ -72,12 +72,16 @@ def obtener_imagen_ciudad(city):
     """
     Función para obtener una imagen de una ciudad usando la API de Unsplash.
     """
-    ACCESS_KEY = st.secrets.get("UNSPLASH_ACCESS_KEY")
-    print("ACCESS_KEY:", ACCESS_KEY)
+     # Arma los headers con la clave de Unsplash desde st.secrets
+    headers = {
+        "Authorization": f"Client-ID {st.secrets['UNSPLASH_ACCESS_KEY']}",
+        "Content-Type": "application/json"
+    }
+    
     # Agregar "city" al término de búsqueda para especificar que queremos una imagen de la ciudad
     query = f"{city} city"
-    url = f"https://api.unsplash.com/search/photos?query={query}&client_id={ACCESS_KEY}&per_page=1"
-    response = requests.get(url)
+    url = f"https://api.unsplash.com/search/photos?query={query}&per_page=1"
+    response = requests.get(url, headers=headers)
     
     if response.status_code == 200:
         data = response.json()
@@ -89,6 +93,7 @@ def obtener_imagen_ciudad(city):
     else:
         st.write("Error al conectarse a la API de Unsplash.")
         return None
+   
 def dashboard(df_limpio):
     st.title("🏠 Bienvenido a Airbnb Insights")
 
