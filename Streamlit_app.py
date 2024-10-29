@@ -94,24 +94,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# Adding each team member with LinkedIn icon and link
-st.sidebar.markdown("### Equipo")
-st.sidebar.markdown(
-    '<div class="team-member"><a href="https://www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
-    unsafe_allow_html=True
-)
-st.sidebar.markdown(
-    '<div class="team-member"><a href="https://www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
-    unsafe_allow_html=True
-)
-st.sidebar.markdown(
-    '<div class="team-member"><a href="enlace_de_Steven" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Steven</span></a></div>',
-    unsafe_allow_html=True
-)
-st.sidebar.markdown(
-    '<div class="team-member"><a href="enlace_de_Israel" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Israel</span></a></div>',
-    unsafe_allow_html=True
-)
+
 
 def obtener_imagen_ciudad(city):
     """
@@ -609,7 +592,27 @@ def main():
 
     st.sidebar.title("Menú de Navegación")  # En lugar de "Índice"
     page = st.sidebar.selectbox("Selecciona una sección", ("Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
-   
+    # Adding each team member with LinkedIn icon and link
+    st.sidebar.markdown("### Equipo")
+    
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
+        unsafe_allow_html=True
+    )
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/steven-hurtado-figueroa-41120974?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Steven Hurtado Figueroa</span></a></div>',
+        unsafe_allow_html=True
+    )
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/israel-mart%C3%ADnez-b5742a138?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Israel Martínes</span></a></div>',
+        unsafe_allow_html=True
+    )
+    
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
+        unsafe_allow_html=True
+    )
+       
 
 # Diseño del Dashboard
     if page == "Dashboard" :
