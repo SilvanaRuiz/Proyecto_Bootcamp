@@ -140,16 +140,12 @@ def inicio():
     """, unsafe_allow_html=True)
     
 
-def dashboard(df_limpio):
+def dashboard(df_limpio, ciudad_seleccionada):
 
     st.title("📊 Dashboard de Airbnb Insights")
 
     # Obtener las ciudades únicas
     ciudades_unicas = df_limpio['city'].unique()
-
-    # Sidebar para selección de ciudad
-    st.sidebar.title("🏙️ Selecciona una ciudad")
-    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades_unicas)
 
     # Filtrar el DataFrame por la ciudad seleccionada
     df_ciudad = df_limpio[df_limpio['city'] == ciudad_seleccionada]
@@ -602,7 +598,7 @@ def main():
         inicio()
         
     elif page == "Dashboard" :
-        dashboard(df_limpio)
+        dashboard(df_limpio, ciudad seleccionada)
 
     elif page== "Análisis Exploratorio":
         analis_exploratorio(ciudad_seleccionada)
