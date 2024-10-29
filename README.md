@@ -26,7 +26,7 @@ El propósito de este proyecto es desarrollar una aplicación que permita:
 - **Dashboard interactivo**: Un panel para explorar datos de listados de Airbnb con filtros y paginación.
 - **Visualizaciones**: Múltiples gráficos sobre la distribución de precios, calificaciones, tipos de anfitrión, y otras variables relevantes.
 - **Análisis de Reseñas con NLP**: Análisis específico de reseñas utilizando técnicas de procesamiento de lenguaje natural.
-- **Herramienta de IA**: Permite analizar enlaces de listados de Airbnb, almacenando los resultados y mostrando visualizaciones clave.
+- **Modelo de predicción**: Permite analizar enlaces de listados de Airbnb, almacenando los resultados y mostrando visualizaciones clave.
 
 ## Estructura del Proyecto
 
