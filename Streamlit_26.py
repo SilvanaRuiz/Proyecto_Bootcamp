@@ -489,35 +489,35 @@ def modelo_prediccion():
     st.markdown("<p style='color: #7B7D7D; margin-top: 20px;'>Completa los detalles de tu alojamiento para obtener una estimación de precio.</p>", unsafe_allow_html=True)
     
     # Cargar el modelo de clasificación entrenado
-    with open('objetos/modelo_clasificacion.pkl', 'rb') as file:
+    with open('../objetos/modelo_clasificacion.pkl', 'rb') as file:
         modelo_clasificacion = pickle.load(file)
     
     # Cargar los modelos de regresión entrenados para cada clúster
-    with open('objetos/modelo_c0.pkl', 'rb') as file:
+    with open('../objetos/modelo_c0.pkl', 'rb') as file:
         modelo_c0 = pickle.load(file)
-    with open('objetos/modelo_c1.pkl', 'rb') as file:
+    with open('../objetos/modelo_c1.pkl', 'rb') as file:
         modelo_c1 = pickle.load(file)
-    with open('objetos/modelo_c2.pkl', 'rb') as file:
+    with open('../objetos/modelo_c2.pkl', 'rb') as file:
         modelo_c2 = pickle.load(file)
     
     # Cargar los percentiles del error absoluto para cada modelo
-    with open('objetos/percentiles_modelo0.pkl', 'rb') as file:
+    with open('../objetos/percentiles_modelo0.pkl', 'rb') as file:
         percentil_inferior0, percentil_superior0 = pickle.load(file)
-    with open('objetos/percentiles_modelo1.pkl', 'rb') as file:
+    with open('../objetos/percentiles_modelo1.pkl', 'rb') as file:
         percentil_inferior1, percentil_superior1 = pickle.load(file)
-    with open('objetos/percentiles_modelo2.pkl', 'rb') as file:
+    with open('../objetos/percentiles_modelo2.pkl', 'rb') as file:
         percentil_inferior2, percentil_superior2 = pickle.load(file)
 
     # Cargar los encoders y columnas
-    with open('objetos/encoder_city.pkl', 'rb') as file:
+    with open('../objetos/encoder_city.pkl', 'rb') as file:
         encoder_city = pickle.load(file)
-    with open('objetos/city_columns.pkl', 'rb') as file:
+    with open('../objetos/city_columns.pkl', 'rb') as file:
         city_columns = pickle.load(file)
-    with open('objetos/encoder_bathroom.pkl', 'rb') as file:
+    with open('../objetos/encoder_bathroom.pkl', 'rb') as file:
         encoder_bathroom = pickle.load(file)
-    with open('objetos/bathroom_columns.pkl', 'rb') as file:
+    with open('../objetos/bathroom_columns.pkl', 'rb') as file:
         bathroom_columns = pickle.load(file)
-    with open('objetos/columnas_X.pkl', 'rb') as file:
+    with open('../objetos/columnas_X.pkl', 'rb') as file:
         columnas_X = pickle.load(file)
 
    
