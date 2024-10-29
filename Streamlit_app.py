@@ -26,7 +26,7 @@ from code.limpieza import limpiezadedatos
 from scipy import stats
 
 # Configurar la página
-st.set_page_config(page_title="Análisis de Mercado de Airbnb", layout="wide")
+st.set_page_config(page_title="Airbnb Insights", page_icon="🏠")
 
 # Estilos CSS personalizados
 st.markdown(
@@ -358,7 +358,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
         st.pyplot(plt.gcf())
 
 
-def analisis_resenas():
+def analisis_resenas(ciudad_seleccionada):
     """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
     mostrando el título de cada Airbnb individualmente con sus tablas respectivas.
@@ -393,8 +393,8 @@ def analisis_resenas():
     ciudades_unicas = predicciones_df['city'].unique()
 
     # Sidebar para selección de ciudad
-    st.sidebar.title("🏙️ Selecciona una ciudad")
-    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades_unicas)
+    #st.sidebar.title("🏙️ Selecciona una ciudad")
+    #ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades_unicas)
 
     # Obtener la URL de la imagen de la ciudad seleccionada
     imagen_url = obtener_imagen_ciudad(ciudad_seleccionada)
@@ -459,7 +459,7 @@ def analisis_resenas():
 
 
 
-def modelo_prediccion():
+def modelo_prediccion(ciudad_seleccionada):
     # Encabezado principal 
     st.markdown("<h1 style='text-align: center; color: #ab47bc;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: #7B7D7D;'>Obtén una estimación del rango de precios para tu alojamiento</h3>", unsafe_allow_html=True)
@@ -515,9 +515,9 @@ def modelo_prediccion():
    
    
     # Seleccionar las ciudades desde el DataFrame
-    ciudades = df['city'].unique()
-    st.sidebar.title("🏙️ Selecciona una ciudad")
-    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
+    #ciudades = df['city'].unique()
+    #st.sidebar.title("🏙️ Selecciona una ciudad")
+    #ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
     #city = st.selectbox("📍 Ciudad", ciudades, help="Selecciona la ciudad de tu alojamiento")
     type_bathroom = st.selectbox("🛁 Tipo de baño", ["private", "shared"], help="Selecciona el tipo de baño")
     number_bedroom = st.number_input("🛌 Número de habitaciones", min_value=0, step=1, help="Especifica la cantidad de habitaciones")
@@ -591,9 +591,10 @@ def modelo_prediccion():
 def main():
 
     
-
     st.sidebar.title("Menú de Navegación")  # En lugar de "Índice"
     page = st.sidebar.selectbox("Selecciona una sección", ("Inicio","Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
+    st.sidebar.title("🏙️ Selecciona una ciudad")
+    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
    
 
 # Diseño del Dashboard
