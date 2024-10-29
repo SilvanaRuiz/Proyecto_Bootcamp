@@ -56,22 +56,23 @@ def extract_bed(bed):
             return float(match.group(1))  
     return None
 
-def extract_bathroom(bath):
-    # Verifica si el valor es None o vacío
-    if bath is None:
-        return "unknown"  # Retorna un valor por defecto si es None
-    # Verifica si se menciona "shared"
-    if re.search(r'\bshared\b', bath, re.IGNORECASE):
-        return "shared"  
-    else:
-        return "private"  
 
-import re
+def extract_bathroom(bath):
+    if isinstance(bath, float) and pd.isna(bath):
+        return "unknown"  # Retorna un valor por defecto si es NaN
+    elif isinstance(bath, str):
+        # Verifica si se menciona "shared"
+        if re.search(r'\bshared\b', bath, re.IGNORECASE):
+            return "shared"
+        else:
+            return "private"
+    else:
+        return "unknown"
 
 def extract_number_of_baths(bath):
     # Verifica si el valor es None o vacío
     if bath is None:
-        return None  
+        return 1  
     
     # Verificar si el baño es compartido (shared) y no menciona el número
     if re.search(r'\bshared\b', bath, re.IGNORECASE):
