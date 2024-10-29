@@ -67,6 +67,7 @@ ciudades = df['city'].unique().tolist()
 df_sin_na = df.dropna()
 df_limpio = limpiezadedatos(df_sin_na)
 
+# Custom CSS to control icon size, color, and styling
 st.sidebar.markdown(
     """
     <style>
@@ -74,12 +75,16 @@ st.sidebar.markdown(
         width: 20px; /* Ajusta el tamaño del icono */
         height: 20px;
         vertical-align: middle;
-        margin-right: 10px; /* Aumenta el espacio entre el icono y el nombre */
+        margin-right: 10px; /* Espacio entre el icono y el nombre */
     }
     .team-member {
         display: flex;
         align-items: center;
         gap: 10px;
+    }
+    .team-member a {
+        text-decoration: none; /* Quita el subrayado del enlace */
+        color: black; /* Cambia el color del texto a negro */
     }
     .member-name {
         font-style: italic; /* Pone el nombre en cursiva */
@@ -92,11 +97,11 @@ st.sidebar.markdown(
 # Adding each team member with LinkedIn icon and link
 st.sidebar.markdown("### Equipo")
 st.sidebar.markdown(
-    '<div class="team-member"><a href="www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
+    '<div class="team-member"><a href="https://www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
     unsafe_allow_html=True
 )
 st.sidebar.markdown(
-    '<div class="team-member"><a href="www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
+    '<div class="team-member"><a href="https://www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
     unsafe_allow_html=True
 )
 st.sidebar.markdown(
@@ -603,9 +608,8 @@ def main():
   
 
     st.sidebar.title("Menú de Navegación")  # En lugar de "Índice"
-    page = st.sidebar.selectbox("Selecciona una sección", ("Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción")) 
-
-
+    page = st.sidebar.selectbox("Selecciona una sección", ("Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
+   
 
 # Diseño del Dashboard
     if page == "Dashboard" :
