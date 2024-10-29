@@ -249,7 +249,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     # Distribución de Calificación
     with tabs[0]:
         st.header("Distribución de Calificación")
-        st.markdown("Este gráfico muestra la distribución de las calificaciones de los alojamientos en la plataforma, permitiendo ver su concentración.")
+        st.markdown("Este gráfico muestra la distribución de las calificaciones de los alojamientos en la plataforma.")
         plt.figure(figsize=(10, 6))
         sns.histplot(df_ciudad['rating'], kde=True, bins=20, color=palette[2], edgecolor='black')
         sns.kdeplot(df_ciudad['rating'], color=palette[1], lw=2.5)
@@ -261,7 +261,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     # Distribución de Precio
     with tabs[1]:
         st.header("Distribución de Precio")
-        st.markdown("Este gráfico muestra cómo se distribuyen los precios, resaltando la media para ver la tendencia general.")
+        st.markdown("Este gráfico muestra la distribución de los precios, resaltando la media para ver la tendencia general.")
         plt.figure(figsize=(10, 6))
         sns.histplot(df_ciudad['price'], kde=True, bins=20, color=palette[3], edgecolor='black')
         mean_price = df_ciudad['price'].mean()
@@ -274,7 +274,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     # Distribución de Precio por Tipo de Anfitrión
     with tabs[2]:
         st.header("Distribución de Precio por Tipo de Anfitrión")
-        st.markdown("Visualiza cómo varía el precio según el tipo de anfitrión, mostrando la dispersión de precios en cada categoría.")
+        st.markdown("Este gráfico ilustra la variación de precios por categoría de anfitrión, destacando la dispersión de precios en cada tipo.")
         plt.figure(figsize=(10, 7))
         sns.violinplot(x='type_host', y='price', data=df_ciudad, inner=None, palette=palette)
         sns.swarmplot(x='type_host', y='price', data=df_ciudad, color='black', alpha=0.6)
@@ -311,7 +311,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     # Relación entre Tiempo de Hospedaje y Precio
     with tabs[5]:
         st.header("Relación entre Tiempo de Hospedaje y Precio")
-        st.markdown("Este gráfico muestra la relación entre tiempo de hospedaje y precio.")
+        st.markdown("Este gráfico muestra cómo se relaciona el tiempo de experiencia del anfitrión con el precio.")
         plt.figure(figsize=(10, 7))
         sns.regplot(x='hosting_time', y='price', data=df_ciudad, scatter_kws={'color': palette[5]}, line_kws={'color': 'crimson'}, ci=95)
         plt.title('Relación entre Tiempo de Hospedaje y Precio', fontsize=18, weight='bold', color='crimson')
@@ -322,51 +322,11 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     # Mapa de Calor de Correlación entre Variables
     with tabs[6]:
         st.header("Mapa de Calor de Correlación entre Variables Numéricas")
-        st.markdown("Este heatmap muestra la correlación entre diferentes variables numéricas en el conjunto de datos.")
+        st.markdown("Este heatmap muestra la correlación entre las distintas variables numéricas del conjunto de datos.")
         plt.figure(figsize=(12, 10))
         sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr(), annot=True, cmap='coolwarm', linewidths=0.5, fmt=".2f")
         plt.title('Mapa de Calor de Correlación', fontsize=20, weight='bold')
         st.pyplot(plt.gcf())
-
-
-    # Comparación de Distribuciones con Curvas Ideales
-    #st.header("Comparación de Distribuciones con Curvas Ideales")
-    #st.markdown("Este gráfico compara distribuciones clave con una curva normal ideal.")
-    #variables = ['price', 'rating', 'number_reviews', 'hosting_time']
-    #plt.figure(figsize=(12, 10))
-    #for i, var in enumerate(variables):
-        #plt.subplot(2, 2, i + 1)
-        #sns.kdeplot(df[var], fill=True, color='orange', alpha=0.6, label='Distribución Observada')
-        #mu, std = np.mean(df[var]), np.std(df[var])
-        #x = np.linspace(min(df[var]), max(df[var]), 100)
-        #p = stats.norm.pdf(x, mu, std) / stats.norm.pdf(x, mu, std).max() * max(plt.ylim())
-        #plt.plot(x, p, 'r--', label='Distribución Ideal (Normal)', lw=2)
-        #plt.title(f'Distribución de {var.capitalize()}')
-        #plt.legend()
-    #st.p3yplot(plt.gcf())
-
-
-
-    # # Crear el gráfico 3D
-    # fig = px.scatter_3d(
-    #     df, x='rating', y='price', z='number_reviews',
-    #     color='guest_favorite', size='number_reviews',
-    #     title='Relación Precio-Rating-Número de Reviews'
-    # )
-
-    # # Título de la aplicación
-    # st.title("Visualización 3D de Datos de Airbnb")
-
-    # # Botón para mostrar el gráfico
-    # if st.button("Mostrar Gráfico 3D"):
-    #     st.plotly_chart(fig)
-
-    # # # Gráfico 3D de Precio, Calificación y Número de Reseñas
-    # # st.header("Relación Precio-Rating-Número de Reseñas")
-    # # fig = px.scatter_3d(df, x='rating', y='price', z='number_reviews', color='guest_favorite', size='number_reviews', title='Relación Precio-Rating-Número de Reviews')
-    # # st.plotly_chart(fig, use_container_width=True)
-
-
 
 
 def analisis_resenas():
