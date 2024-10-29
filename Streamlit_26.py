@@ -72,7 +72,11 @@ def obtener_imagen_ciudad(city):
     Función para obtener una imagen de una ciudad usando la API de Unsplash.
     """
 
-    UNSPLASH_ACCESS_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
+    try:
+        UNSPLASH_ACCESS_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
+    except KeyError:
+        st.error("No se encontró la clave de API de Unsplash en los secretos de Streamlit.")
+        return None
     # Agregar "city" al término de búsqueda para especificar que queremos una imagen de la ciudad
     query = f"{city} city"
     url = f"https://api.unsplash.com/search/photos?query={query}&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
