@@ -49,12 +49,12 @@ except FileNotFoundError:
     
     # Intentar descomprimir el archivo zip
     try:
-        with zipfile.ZipFile('objetos/Airbnb.csv.zip', 'r') as zip_ref:
+        with zipfile.ZipFile('./objetos/Airbnb.csv.zip', 'r') as zip_ref:
             zip_ref.extractall()  # Extrae todos los archivos en el directorio actual
         print("Archivo descomprimido exitosamente.")
 
         # Intentar cargar el CSV nuevamente después de descomprimir
-        df = pd.read_csv('objetos/Airbnb.csv')
+        df = pd.read_csv('./objetos/Airbnb.csv')
         print("Archivo CSV cargado exitosamente después de descomprimir.")
         
     except FileNotFoundError:
