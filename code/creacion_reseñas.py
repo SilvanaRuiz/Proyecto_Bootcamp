@@ -15,7 +15,7 @@ def extraer_datos_y_unir_2():
     """
     # Leer el archivo CSV `resultados_nlp.csv` para obtener la lista de IDs
     try:
-        resultados = pd.read_csv('../objetos/resultados_nlp.csv')
+        resultados = pd.read_csv('../objetos/resultados_nlp.csv', 'r')
         lista_ids = resultados['id_url'].tolist()
     except FileNotFoundError:
         print("Error: No se encontró el archivo 'resultados_nlp.csv'.")
