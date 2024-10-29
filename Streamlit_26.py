@@ -73,7 +73,10 @@ st.sidebar.markdown("### Equipo")
 #st.sidebar.markdown('[![Ignacio](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Ignacio)')
 #st.sidebar.markdown('[![Steven](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Steven)')
 #st.sidebar.markdown('[![Israel](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Israel)')
-st.sidebar.markdown('[![Silvana](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](www.linkedin.com/in/silvana-ruiz-medina-922397238)')
+st.sidebar.markdown(
+    '<a href="(www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank">Silvana <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"></a>',
+    unsafe_allow_html=True
+)
 
 def obtener_imagen_ciudad(city):
     """
