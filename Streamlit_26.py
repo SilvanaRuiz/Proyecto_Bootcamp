@@ -18,12 +18,11 @@ import seaborn as sns
 import plotly.express as px
 from dotenv import load_dotenv
 import os
-from creacion_reseñas import extraer_datos_y_unir_2
+from code.creacion_reseñas import extraer_datos_y_unir_2
 from sklearn.preprocessing import OneHotEncoder
 import pickle
 import zipfile
-from limpieza import limpiezadedatos
-from connection import get_connection
+from code.limpieza import limpiezadedatos
 from scipy import stats
 
 # Configurar la página
