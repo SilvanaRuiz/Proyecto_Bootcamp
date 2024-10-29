@@ -122,7 +122,7 @@ def obtener_imagen_ciudad(city):
         st.write("Error al conectarse a la API de Unsplash.")
         return None
 def inicio():
-     st.title("🏠 Bienvenido a Airbnb Insights")
+    st.title("🏠 Bienvenido a Airbnb Insights")
 
 # Sección combinada de bienvenida y descripción de la app
     st.markdown("""
