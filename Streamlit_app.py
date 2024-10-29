@@ -26,7 +26,7 @@ from code.limpieza import limpiezadedatos
 from scipy import stats
 
 # Configurar la página
-st.set_page_config(page_title="Airbnb Insights", page_icon="🏠", layeout='wide')
+st.set_page_config(page_title="Airbnb Insights", page_icon="🏠", layout='wide')
 
 # Estilos CSS personalizados
 st.markdown(
