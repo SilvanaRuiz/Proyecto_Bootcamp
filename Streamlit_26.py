@@ -66,8 +66,27 @@ except FileNotFoundError:
 ciudades = df['city'].unique().tolist()
 df_sin_na = df.dropna()
 df_limpio = limpiezadedatos(df_sin_na)
+
+st.sidebar.markdown(
+    """
+    <style>
+    .linkedin-icon {
+        width: 20px; /* Ajusta el tamaño del icono */
+        height: 20px;
+        vertical-align: middle;
+        margin-right: 5px; /* Espacio entre el icono y el nombre */
+    }
+    .team-member {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 # LinkedIn icons with links
-st.sidebar.markdown("### Equipo")
+st.sidebar.markdown("## Equipo")
 
 # Para cada miembro, carga el ícono de LinkedIn y enlázalo a su perfil
 #st.sidebar.markdown('[![Ignacio](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Ignacio)')
