@@ -107,18 +107,13 @@ Este proyecto aborda objetivos técnicos, analíticos, y de desarrollo en equipo
 
 ### Dependencias Principales
 - streamlit
-- pandas- 
+- pandas 
 - plotly
 - seaborn
 - matplotlib
 - scikit-learn
 - nltk
-
-
-## Ejecutar la Aplicación
-
-git clone <url>
-cd <nombre>
+- selenium
 
 ### Instala las dependencias:
 
@@ -126,4 +121,4 @@ pip install -r requirementos.txt
 
 #### Ejecuta la aplicación con Streamlit:
 
-python -m streamlit run streamlit_26.py
+python -m streamlit run Streamlit_26.py
