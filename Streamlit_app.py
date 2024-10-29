@@ -225,7 +225,7 @@ def dashboard(df_limpio):
             mime="text/x-python"  # MIME específico para archivos .ipynb
         )
 
-def analis_exploratorio():
+def analis_exploratorio(ciudad_seleccionada):
 
     # Configuración de estilos
     sns.set(style="whitegrid")  # Fondo claro
@@ -236,9 +236,9 @@ def analis_exploratorio():
 
 
     # Selector de ciudad
-    ciudades = df_limpio['city'].unique().tolist()
-    st.sidebar.title("🏙️ Selecciona una ciudad")
-    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
+    #ciudades = df_limpio['city'].unique().tolist()
+    #st.sidebar.title("🏙️ Selecciona una ciudad")
+    #ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
 
 
     # Filtrar el DataFrame por la ciudad seleccionada
@@ -605,13 +605,13 @@ def main():
         dashboard(df_limpio)
 
     elif page== "Análisis Exploratorio":
-        analis_exploratorio()
+        analis_exploratorio(ciudad_seleccionada)
 
     elif page == "Análisis de Reseñas":
-        analisis_resenas()
+        analisis_resenas(ciudad_seleccionada)
   
     elif page == "Modelo de Predicción":
-        modelo_prediccion()
+        modelo_prediccion(ciudad_seleccionada)
 
      # Adding each team member with LinkedIn icon and link
     st.sidebar.markdown("### Equipo")
