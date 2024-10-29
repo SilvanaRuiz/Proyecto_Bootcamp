@@ -287,8 +287,8 @@ urls_cities = [#"https://www.airbnb.com/s/San-Francisco--California--United-Stat
                "https://www.airbnb.com/s/Miami--Florida--United-States/homes"
                ]
 
-#df_full =  pd.read_csv("Airbnb.csv")
-df_full = pd.read_csv('all_url.csv')
+df_full =  pd.read_csv("Airbnb.csv")
+#df_full = pd.read_csv('all_url.csv')
 all_ids = df_full["id_url"]
 
 urls_dicc = {}
