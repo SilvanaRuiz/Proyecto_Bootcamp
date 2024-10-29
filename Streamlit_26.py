@@ -66,7 +66,14 @@ except FileNotFoundError:
 ciudades = df['city'].unique().tolist()
 df_sin_na = df.dropna()
 df_limpio = limpiezadedatos(df_sin_na)
+# LinkedIn icons with links
+st.sidebar.markdown("### Equipo")
 
+# Para cada miembro, carga el ícono de LinkedIn y enlázalo a su perfil
+#st.sidebar.markdown('[![Ignacio](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Ignacio)')
+#st.sidebar.markdown('[![Steven](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Steven)')
+#st.sidebar.markdown('[![Israel](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Israel)')
+st.sidebar.markdown('[![Silvana](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](www.linkedin.com/in/silvana-ruiz-medina-922397238)')
 
 def obtener_imagen_ciudad(city):
     """
