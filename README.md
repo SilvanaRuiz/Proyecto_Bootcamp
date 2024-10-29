@@ -66,9 +66,8 @@ La aplicación incluye varias vistas que permiten interactuar con los datos y vi
    - **Navegación y Filtrado**: Permite explorar listados mediante filtros y paginación.
    - **Visualización de Datos Clave**: Estadísticas generales como total de alojamientos, rating promedio y precio promedio.
    - **Actualización de Datos**: Explicación del proceso de scraping con opción de descarga para obtener datos actualizados.
-### 1. Vista Análisis Exploratorio
-
-   - **Navegación y Filtrado**: Permite explorar listados mediante filtros y paginación.
+     
+### 2. Vista Análisis Exploratorio
    - Esta sección permite visualizar datos clave de los listados de Airbnb en la ciudad seleccionada mediante diversos gráficos interactivos.
    - **Distribución de Calificación y Precio**: Histogramas que muestran la dispersión de calificaciones y precios de los alojamientos.
    - **Precio por Tipo de Anfitrión**: Gráficos que destacan la variabilidad de precios según el tipo de anfitrión.
