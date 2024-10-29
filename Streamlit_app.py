@@ -587,7 +587,7 @@ def modelo_prediccion(ciudad_seleccionada):
 def main():
 
     
-    st.sidebar.title("Menú de Navegación")  
+    st.sidebar.title(" 🗺️ Menú de Navegación")  
     page = st.sidebar.selectbox("Selecciona una sección", ("Inicio","Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
     st.sidebar.title("🏙️ Selecciona una ciudad")
     ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
