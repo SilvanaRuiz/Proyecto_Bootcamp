@@ -72,7 +72,7 @@ def obtener_imagen_ciudad(city):
     Función para obtener una imagen de una ciudad usando la API de Unsplash.
     """
 
-    UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY")
+    UNSPLASH_ACCESS_KEY = st.secrets["UNSPLASH_ACCESS_KEY"]
     # Agregar "city" al término de búsqueda para especificar que queremos una imagen de la ciudad
     query = f"{city} city"
     url = f"https://api.unsplash.com/search/photos?query={query}&client_id={UNSPLASH_ACCESS_KEY}&per_page=1"
