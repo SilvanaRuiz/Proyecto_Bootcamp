@@ -74,26 +74,37 @@ st.sidebar.markdown(
         width: 20px; /* Ajusta el tamaño del icono */
         height: 20px;
         vertical-align: middle;
-        margin-right: 5px; /* Espacio entre el icono y el nombre */
+        margin-right: 10px; /* Aumenta el espacio entre el icono y el nombre */
     }
     .team-member {
         display: flex;
         align-items: center;
         gap: 10px;
     }
+    .member-name {
+        font-style: italic; /* Pone el nombre en cursiva */
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
-# LinkedIn icons with links
-st.sidebar.markdown("## Equipo")
 
-# Para cada miembro, carga el ícono de LinkedIn y enlázalo a su perfil
-#st.sidebar.markdown('[![Ignacio](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Ignacio)')
-#st.sidebar.markdown('[![Steven](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Steven)')
-#st.sidebar.markdown('[![Israel](https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png)](enlace_de_Israel)')
+# Adding each team member with LinkedIn icon and link
+st.sidebar.markdown("### Equipo")
 st.sidebar.markdown(
-    '<a href="(www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank">Silvana <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"></a>',
+    '<div class="team-member"><a href="www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
+    unsafe_allow_html=True
+)
+st.sidebar.markdown(
+    '<div class="team-member"><a href="www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
+    unsafe_allow_html=True
+)
+st.sidebar.markdown(
+    '<div class="team-member"><a href="enlace_de_Steven" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Steven</span></a></div>',
+    unsafe_allow_html=True
+)
+st.sidebar.markdown(
+    '<div class="team-member"><a href="enlace_de_Israel" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Israel</span></a></div>',
     unsafe_allow_html=True
 )
 
