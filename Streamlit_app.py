@@ -169,7 +169,7 @@ def dashboard(df_limpio,ciudad_seleccionada):
     with col2:
         # Contenedor principal del Dashboard en la columna derecha
         st.markdown("""
-            <div style='background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
+            <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
                 <h2 style='color: #ab47bc; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Resumen de Datos de Airbnb</h2>
                 <p style='color: #4a4a4a;'>Visualiza los principales indicadores de Airbnb en la ciudad seleccionada para tener una visión general del mercado.</p>
             </div>
