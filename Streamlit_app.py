@@ -463,8 +463,6 @@ def analisis_resenas_3(ciudad_seleccionada, estilo="tarjeta"):
     st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
     st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
-# Llama a la función con una ciudad de ejemplo
-analisis_resenas_2("Charlotte")
 
 
 
