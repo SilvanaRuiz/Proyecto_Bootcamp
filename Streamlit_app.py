@@ -371,8 +371,7 @@ def analis_exploratorio(ciudad_seleccionada):
         correlacion()
     else:
         plot_chart(selected_chart)
-import streamlit as st
-import pandas as pd
+
 
 def create_table_html(data):
     table_html = "<table style='width:100%; border-collapse: collapse;'>"
@@ -417,27 +416,17 @@ def analisis_resenas_3(ciudad_seleccionada):
         </div>
     """, unsafe_allow_html=True)
 
-    # Ejemplo de datos
-    predicciones_df = pd.DataFrame({
-        "title": ["Oceanside Getaway", "Muir Beach's Haiku House with Dramatic Ocean Views"],
-        "city": [ciudad_seleccionada, ciudad_seleccionada],
-        "Valor Real": [4.5, 4.7],
-        "Predicción": [4.3, 4.8],
-        "price": [150, 200],
-        "type_host": ["Superhost", "Host"],
-        "number_reviews": [120, 80],
-        "number_guest": [4, 6],
-        "number_bedroom": [2, 3],
-        "number_beds": [2, 3],
-        "type_bathroom": ["private", "shared"],
-        "number_bathroom": [1, 2]
-    })
+    # Extraer los datos usando la función original
+    predicciones_df = extraer_datos_y_unir_2()
+
+    # Filtrar el DataFrame por ciudad seleccionada
+    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(5)  # Puedes ajustar el número de resultados
 
     # Título para los alojamientos
     st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
 
     # Mostrar los alojamientos en estilo de tarjeta
-    for idx, row in predicciones_df.iterrows():
+    for idx, row in df_ciudad.iterrows():
         st.markdown(
             f"""
             <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
@@ -474,6 +463,8 @@ def analisis_resenas_3(ciudad_seleccionada):
             st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
             st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
+# Llama a la función con una ciudad de ejemplo
+analisis_resenas("San Francisco")
 
 def analisis_resenas(ciudad_seleccionada):
     """
