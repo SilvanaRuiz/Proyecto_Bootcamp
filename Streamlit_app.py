@@ -469,7 +469,11 @@ def analisis_resenas(ciudad_seleccionada):
                 "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
             })
             st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
+import streamlit as st
+import pandas as pd
+
 def analisis_resenas_2(ciudad_seleccionada):
+    """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
     mostrando el título de cada Airbnb individualmente con sus tablas respectivas.
     """
@@ -496,6 +500,7 @@ def analisis_resenas_2(ciudad_seleccionada):
             </p>
         </div>
     """, unsafe_allow_html=True)
+
     # Extraer los datos
     predicciones_df = extraer_datos_y_unir_2()
 
@@ -552,7 +557,6 @@ def analisis_resenas_2(ciudad_seleccionada):
         })
         st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
         st.table(tabla_caracteristicas)
-
 
 
 
