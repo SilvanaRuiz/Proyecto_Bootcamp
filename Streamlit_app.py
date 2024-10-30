@@ -136,42 +136,20 @@ def inicio():
     )
 
     # Contenedor principal de bienvenida y descripción
-    st.markdown(
-        """
-        <div style='background-color: #fefefe; padding: 40px; border-radius: 15px; box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);'>
-            <h2 style='color: #FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
-            <p style='color: #616161; text-align: center; font-size: 16px; margin-top: 10px;'>Esta aplicación fue creada como proyecto fin de bootcamp de Hackaboss.</p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
 
-    # Introducción al análisis del mercado de Airbnb
-    st.write(
-        """
-        Con esta herramienta, podrás realizar un análisis exhaustivo del mercado de Airbnb, incluyendo:
-        """
-    )
-
-    # Lista de funcionalidades
-    st.markdown(
-        """
-        - **Análisis Exploratorio de Datos**: Exploración de listados de Airbnb mediante _web scraping_.
-        - **Análisis de Sentimiento de Reseñas**: Comparación de ratings de alojamientos con un análisis de sentimiento de las opiniones de los usuarios.
-        - **Calculadora de Precios**: Predicción del precio adecuado para un Airbnb basado en la ciudad y características del alojamiento.
-        """
-    )
-
-    # Descripción detallada
-    st.write(
-        """
-        A través de **web scraping**, hemos recopilado una amplia gama de información sobre múltiples ciudades. Esta información nos permite analizar diferentes aspectos del mercado, como las características de los alojamientos, las valoraciones de los huéspedes y las reseñas dejadas por los usuarios.
-
-        Utilizando métodos de procesamiento de lenguaje natural como el **análisis de sentimiento**, analizamos opiniones para identificar patrones y obtener una comprensión profunda de lo que los usuarios valoran o critican en los alojamientos.
-
-        Además, en base a los precios de los alojamientos en cada ciudad, desarrollamos una **calculadora predictiva de precios** que utiliza algoritmos de aprendizaje automático para estimar el precio adecuado para tu alojamiento. Esta herramienta considera tanto las características de tu propiedad como los precios de otros alojamientos en la misma ciudad, brindándote una recomendación competitiva y alineada con el mercado local para maximizar ocupación y rentabilidad.
-        """
-    )
+    st.markdown("""
+    <div style='background-color: #f5f5f5; padding: 30px; border-radius: 12px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);'>
+        <h2 style='color: #FF5A5F;  text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
+        <p style='color: #424242; text-align: center; font-size: 16px; margin-top: 10px;'>Esta aplicación fue creada como proyecto fin de bootcamp de Hackaboss.</p>
+        <p style='color: #424242; font-size: 15px; margin-top: 20px; line-height: 1.6;'>Con esta herramienta, podrás realizar un análisis exhaustivo del mercado de Airbnb, incluyendo:</p>
+        <ul style='color: #424242; font-size: 15px; padding-left: 20px; line-height: 1.8;'>
+            <li><b>Análisis Exploratorio de Datos</b>: Exploración de listados de Airbnb mediante <i>web scraping</i>.</li>
+            <li><b>Análisis de Sentimiento de Reseñas</b>: Comparación de ratings de alojamientos con un análisis de sentimiento de las opiniones de los usuarios.</li>
+            <li><b>Calculadora de Precios</b>: Predicción del precio adecuado para un Airbnb basado en la ciudad y características del alojamiento.</li>
+        </ul>
+        <p style='color: #424242; font-size: 15px; line-height: 1.6;'>A través de <b>web scraping</b>, hemos recopilado una amplia gama de información sobre múltiples ciudades. Esta información nos permite analizar diferentes aspectos del mercado, como las características de los alojamientos, las valoraciones de los huéspedes y las reseñas dejadas por los usuarios. Utilizando métodos de procesado de lenguaje natural como es el <b>análisis de sentimiento</b>, hemos utilizado las opiniones de los huéspedes para identificar patrones y obtener una comprensión profunda de lo que los usuarios valoran o critican en los alojamientos. Además, en base a los precios de los alojamientos en cada ciudad, hemos desarrollado una <b>calculadora predictiva de precios</b>. Esta herramienta analiza las tarifas actuales de Airbnb en una ciudad específica y, utilizando algoritmos de aprendizaje automático, estima el precio adecuado para tu alojamiento. Esta estimación no solo toma en cuenta las características de tu propiedad, sino que también se ajusta en función de los precios de otros alojamientos en la misma ciudad, brindándote una recomendación precisa y competitiva. Así, puedes asegurarte de que tu Airbnb esté alineado con el mercado local y maximizar tu ocupación y rentabilidad.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def dashboard(df_limpio,ciudad_seleccionada):
