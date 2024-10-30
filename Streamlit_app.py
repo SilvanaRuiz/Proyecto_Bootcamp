@@ -359,16 +359,23 @@ def analis_exploratorio(ciudad_seleccionada):
             height=800
         )
     
-        # Mostrar el gráfico en Streamlit centrado
+        # CSS para centrar el gráfico
         st.markdown(
             """
-            <div style='display: flex; justify-content: center;'>
-                <div style='width: 800px;'>
-                    """, unsafe_allow_html=True
+            <style>
+            .centered {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
         )
+    
+        # Crear un div centrado para el gráfico
+        st.markdown("<div class='centered'>", unsafe_allow_html=True)
         st.plotly_chart(fig)
-        st.markdown("</div></div>", unsafe_allow_html=True)
-
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
