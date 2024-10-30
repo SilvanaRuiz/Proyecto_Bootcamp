@@ -324,7 +324,7 @@ def analis_exploratorio(ciudad_seleccionada):
     
         # Calcular la matriz de correlación
         correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr().round(2)
-        
+    
         # Crear el mapa de calor con Plotly
         fig = go.Figure(
             data=go.Heatmap(
@@ -335,7 +335,7 @@ def analis_exploratorio(ciudad_seleccionada):
                 colorbar=dict(title="Correlación")
             )
         )
-        
+    
         # Agregar anotaciones para mostrar los valores de correlación
         for i in range(len(correlacion.columns)):
             for j in range(len(correlacion.columns)):
@@ -346,7 +346,7 @@ def analis_exploratorio(ciudad_seleccionada):
                     showarrow=False,
                     font=dict(color="black", size=12)
                 )
-        
+    
         # Configuración de layout para hacer el gráfico más grande y centrado
         fig.update_layout(
             title_text='Mapa de Calor de Correlación',
@@ -358,20 +358,16 @@ def analis_exploratorio(ciudad_seleccionada):
             width=800,  # Aumentar el tamaño del gráfico
             height=800
         )
-        
-        # Mostrar el gráfico en Streamlit
+    
+        # Mostrar el gráfico en Streamlit centrado
         st.markdown(
             """
             <div style='display: flex; justify-content: center;'>
                 <div style='width: 800px;'>
-            """, unsafe_allow_html=True
+                    """, unsafe_allow_html=True
         )
-        
         st.plotly_chart(fig)
-        
-        #st.markdown("</div></div>", unsafe_allow_html=True)  
-           
-
+        st.markdown("</div></div>", unsafe_allow_html=True)
 
 
     # Mostrar gráfico seleccionado
