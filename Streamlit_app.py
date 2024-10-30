@@ -388,7 +388,7 @@ def create_table_html(data):
     table_html += "</tbody></table>"
     return table_html
 
-def analisis_resenas_3(ciudad_seleccionada):
+def analisis_resenas_2(ciudad_seleccionada):
     """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
     mostrando los alojamientos en estilo de tarjetas y tablas de predicción y características al seleccionar un alojamiento.
@@ -438,36 +438,41 @@ def analisis_resenas_3(ciudad_seleccionada):
 
     # Mostrar los alojamientos en estilo de tarjeta
     for idx, row in predicciones_df.iterrows():
-        with st.expander(f"{row['title']} - Ubicación: {ciudad_seleccionada}"):
-            # Botón dentro de la tarjeta para desplegar detalles
-            if st.button(f"Mostrar información de {row['title']}", key=f"btn_{idx}"):
-                # Tabla de calificación y predicción
-                tabla_pred = pd.DataFrame({
-                    "Rating Real": [row['Valor Real']],
-                    "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
-                })
-                st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
-                st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
+        st.markdown(
+            f"""
+            <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
+                <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
+                <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
-                # Modificación del tipo de baño
-                tipo_bano = "Privado" if row['type_bathroom'] == "private" else "Compartido"
+        # Botón dentro de la tarjeta para desplegar detalles
+        if st.button(f"Mostrar información de {row['title']}", key=f"btn_{idx}"):
+            # Tabla de calificación y predicción
+            tabla_pred = pd.DataFrame({
+                "Rating Real": [row['Valor Real']],
+                "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
+            })
+            st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
+            st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
 
-                # Tabla de características del alojamiento con el tipo de baño modificado
-                tabla_caracteristicas = pd.DataFrame({
-                    "Precio": [f"€{int(row['price'])}"],
-                    "Tipo de Huésped": ["👤 Superhost" if row['type_host'] == "Superhost" else "👤 Host"],
-                    "Número de Reseñas": [int(row['number_reviews'])],
-                    "Número de Huéspedes": [f"👥 {int(row['number_guest'])}"],
-                    "Número de Habitaciones": [f"🛌 {int(row['number_bedroom'])}"],
-                    "Número de Camas": [f"🛏️ {int(row['number_beds'])}"],
-                    "Tipo de Baño": [tipo_bano],
-                    "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
-                })
-                st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
-                st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
+            # Modificación del tipo de baño
+            tipo_bano = "Privado" if row['type_bathroom'] == "private" else "Compartido"
 
-
-
+            # Tabla de características del alojamiento con el tipo de baño modificado
+            tabla_caracteristicas = pd.DataFrame({
+                "Precio": [f"€{int(row['price'])}"],
+                "Tipo de Huésped": ["👤 Superhost" if row['type_host'] == "Superhost" else "👤 Host"],
+                "Número de Reseñas": [int(row['number_reviews'])],
+                "Número de Huéspedes": [f"👥 {int(row['number_guest'])}"],
+                "Número de Habitaciones": [f"🛌 {int(row['number_bedroom'])}"],
+                "Número de Camas": [f"🛏️ {int(row['number_beds'])}"],
+                "Tipo de Baño": [tipo_bano],
+                "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
+            })
+            st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
+            st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
 
 def analisis_resenas(ciudad_seleccionada):
