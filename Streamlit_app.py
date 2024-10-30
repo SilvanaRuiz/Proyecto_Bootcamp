@@ -374,16 +374,12 @@ def analis_exploratorio(ciudad_seleccionada):
 import streamlit as st
 import pandas as pd
 
-# Función para crear una tabla HTML sin índice
 def create_table_html(data):
     table_html = "<table style='width:100%; border-collapse: collapse;'>"
-    # Header
     table_html += "<thead><tr style='background-color: #f5f5f5;'>"
     for col in data.columns:
         table_html += f"<th style='border: 1px solid #e0e0e0; padding: 8px; font-weight: bold;'>{col}</th>"
-    table_html += "</tr></thead>"
-    # Rows
-    table_html += "<tbody>"
+    table_html += "</tr></thead><tbody>"
     for _, row in data.iterrows():
         table_html += "<tr>"
         for cell in row:
@@ -392,10 +388,10 @@ def create_table_html(data):
     table_html += "</tbody></table>"
     return table_html
 
-def analisis_resenas_3(ciudad_seleccionada, estilo="tarjeta"):
+def analisis_resenas_3(ciudad_seleccionada):
     """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
-    mostrando los alojamientos en distintos estilos de presentación.
+    mostrando los alojamientos en estilo de tarjetas y tablas de predicción y características al seleccionar un alojamiento.
     """
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
     
@@ -408,60 +404,74 @@ def analisis_resenas_3(ciudad_seleccionada, estilo="tarjeta"):
     </div>
     """, unsafe_allow_html=True)
 
-    # Ejemplo de DataFrame de alojamientos
-    df_ciudad = pd.DataFrame({
-        "title": ["Quaint studio in the heart of Rock Hill, SC", "Indoor/outdoor living! Minutes from NoDa & Uptown"],
-        "city": [ciudad_seleccionada, ciudad_seleccionada]
-    })
+    # Caja gris para la descripción de la sección
+    st.markdown("""
+        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
+           <h2 style='text-align: center; color: #333333; font-weight: bold;'>Exploración de Opiniones y Valoraciones de Usuarios</h2>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                En esta sección, podrás explorar en profundidad el análisis de reseñas de usuarios en Airbnb. Utilizando técnicas de <b>análisis de sentimiento</b>, hemos evaluado las opiniones y valoraciones de los huéspedes en función de sus comentarios.
+            </p>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                Nuestro enfoque se centra en comparar las calificaciones de los alojamientos con los resultados del análisis de sentimiento de las reseñas. De esta manera, puedes visualizar la alineación (o discrepancia) entre las opiniones textuales de los huéspedes y las puntuaciones que otorgan. 
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
 
-    # Layout de selección de estilo
+    # Extraer los datos
+    predicciones_df = extraer_datos_y_unir_2()
+
+    # Filtrar el DataFrame por ciudad seleccionada
+    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(5)  # Puedes ajustar el número de resultados
+
+    # Título para los alojamientos
     st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
-    st.write("Selecciona el estilo de presentación:")
-    estilo_seleccionado = st.radio("", ("Tarjeta", "Lista con Icono"))
+    alojamiento_seleccionado = None  # Variable para almacenar el alojamiento seleccionado
 
-    # Mostrar los alojamientos en el estilo seleccionado
-    if estilo_seleccionado == "Tarjeta":
-        for idx, row in df_ciudad.iterrows():
-            st.markdown(
-                f"""
-                <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
-                    <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
-                    <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
-                    <button style='background-color: #ff9800; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer;'>Seleccionar</button>
-                </div>
-                """, unsafe_allow_html=True
-            )
+    # Mostrar los alojamientos en estilo de tarjeta
+    for idx, row in df_ciudad.iterrows():
+        if st.button(row['title']):
+            alojamiento_seleccionado = row  # Actualizar el alojamiento seleccionado
 
-    elif estilo_seleccionado == "Lista con Icono":
-        for idx, row in df_ciudad.iterrows():
-            st.markdown(
-                f"""
-                <div style='display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #ddd;'>
-                    <div style='margin-right: 15px;'>
-                        <img src='https://img.icons8.com/ios-filled/50/000000/home.png' width='40'/>
-                    </div>
-                    <div>
-                        <h4 style='color: #FF5A5F; margin: 0;'>{row['title']}</h4>
-                        <p style='color: #555; margin: 0;'>Ubicación: {ciudad_seleccionada}</p>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True
-            )
+        st.markdown(
+            f"""
+            <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
+                <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
+                <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
 
-    # Ejemplo de tabla de características para el alojamiento seleccionado
-    tabla_caracteristicas = pd.DataFrame({
-        "Precio": ["€100"],
-        "Tipo de Huésped": ["👤 Superhost"],
-        "Número de Reseñas": [10],
-        "Número de Huéspedes": ["👥 2"],
-        "Número de Habitaciones": ["🛌 1"],
-        "Número de Camas": ["🛏️ 1"],
-        "Tipo de Baño": ["Privado"],
-        "Número de Baños": ["🚽 1"]
-    })
+    # Mostrar detalles del alojamiento seleccionado
+    if alojamiento_seleccionado is not None:
+        st.markdown("<hr style='margin-top: 20px; margin-bottom: 20px;'>", unsafe_allow_html=True)
+        st.markdown(f"<h3 style='text-align: center;'>{alojamiento_seleccionado['title']}</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
-    st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
+        # Tabla de calificación y predicción
+        tabla_pred = pd.DataFrame({
+            "Rating Real": [alojamiento_seleccionado['Valor Real']],
+            "Predicción Análisis de Sentimiento": [round(alojamiento_seleccionado['Predicción'], 2)]
+        })
+        st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
+        st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
+
+        # Modificación del tipo de baño
+        tipo_bano = "Privado" if alojamiento_seleccionado['type_bathroom'] == "private" else "Compartido"
+
+        # Tabla de características del alojamiento con el tipo de baño modificado
+        tabla_caracteristicas = pd.DataFrame({
+            "Precio": [f"€{int(alojamiento_seleccionado['price'])}"],
+            "Tipo de Huésped": ["👤 Superhost" if alojamiento_seleccionado['type_host'] == "Superhost" else "👤 Host"],
+            "Número de Reseñas": [int(alojamiento_seleccionado['number_reviews'])],
+            "Número de Huéspedes": [f"👥 {int(alojamiento_seleccionado['number_guest'])}"],
+            "Número de Habitaciones": [f"🛌 {int(alojamiento_seleccionado['number_bedroom'])}"],
+            "Número de Camas": [f"🛏️ {int(alojamiento_seleccionado['number_beds'])}"],
+            "Tipo de Baño": [tipo_bano],
+            "Número de Baños": [f"🚽 {int(alojamiento_seleccionado['number_bathroom'])}"]
+        })
+        st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
+        st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
+
+
 
 
 
