@@ -35,7 +35,7 @@ st.markdown(
     <style>
     /* Fondo de la barra lateral en color salmón con transparencia */
     .stSidebar {
-        background-color: rgba(255, 90, 95, 0.7) !important;
+        background-color: rgba(255, 90, 95, 0.4) !important;
     }
     </style>
     """,
