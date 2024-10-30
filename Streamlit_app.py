@@ -420,7 +420,7 @@ def analisis_resenas_3(ciudad_seleccionada):
     predicciones_df = extraer_datos_y_unir_2()
 
     # Filtrar el DataFrame por ciudad seleccionada
-    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(5)  # Puedes ajustar el número de resultados
+    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(3)  # Puedes ajustar el número de resultados
 
     # Título para los alojamientos
     st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
@@ -463,8 +463,6 @@ def analisis_resenas_3(ciudad_seleccionada):
             st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
             st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
-# Llama a la función con una ciudad de ejemplo
-analisis_resenas("San Francisco")
 
 def analisis_resenas(ciudad_seleccionada):
     """
