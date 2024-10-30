@@ -369,7 +369,7 @@ def analis_exploratorio(ciudad_seleccionada):
         
         st.plotly_chart(fig)
         
-        st.markdown("</div></div>", unsafe_allow_html=True)  
+        #st.markdown("</div></div>", unsafe_allow_html=True)  
            
 
 
