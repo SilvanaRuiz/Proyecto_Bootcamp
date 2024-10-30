@@ -317,13 +317,16 @@ def analis_exploratorio(ciudad_seleccionada):
                             title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
         st.plotly_chart(fig)
 
-    # Función para gráfico de correlación 
     def correlacion():
         df_ciudad.drop(columns='Unnamed: 0', inplace=True)
         st.header("Mapa de Calor de Correlación entre Variables")
     
         # Calcular la matriz de correlación
         correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr().round(2)
+    
+        # Renombrar las columnas al español y con formato solicitado
+        correlacion.columns = ['Calificación', 'Número de Reseñas', 'Tiempo de Alojamiento', 'Precio', 'Favorito del Cliente']
+        correlacion.index = correlacion.columns  # Asegura que el índice también tenga estos nombres
     
         # Crear el mapa de calor con Plotly
         fig = go.Figure(
@@ -335,7 +338,7 @@ def analis_exploratorio(ciudad_seleccionada):
                 colorbar=dict(title="Correlación")
             )
         )
-
+    
         # Agregar anotaciones para mostrar los valores de correlación
         for i in range(len(correlacion.columns)):
             for j in range(len(correlacion.columns)):
@@ -361,7 +364,6 @@ def analis_exploratorio(ciudad_seleccionada):
             col1, col2, col3 = st.columns([0.5, 3, 0.5])  # Columnas con el medio más ancho
             with col2:
                 st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
-        
   
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
@@ -634,7 +636,7 @@ def main():
         analis_exploratorio(ciudad_seleccionada)
 
     elif page == "Análisis de Reseñas":
-        analisis_resenas_3(ciudad_seleccionada)
+        analisis_resenas(ciudad_seleccionada)
   
     elif page == "Modelo de Predicción":
         modelo_prediccion(ciudad_seleccionada)
