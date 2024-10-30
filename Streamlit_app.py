@@ -317,19 +317,40 @@ def analis_exploratorio(ciudad_seleccionada):
         st.plotly_chart(fig)
 
     # Función para gráfico de correlación 
-    def correlacion():
-        st.header("Mapa de Calor de Correlación entre Variables")
-        plt.figure(figsize=(8, 4))
-        sns.heatmap(
-            df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr(), 
-            annot=True, 
-            cmap="YlOrRd",  # Cambiado a una paleta cálida
-            linewidths=0.5, 
-            fmt=".2f", 
-            cbar_kws={'label': 'Correlación'}
+    import plotly.graph_objects as go
+
+def correlacion():
+    st.header("Mapa de Calor de Correlación entre Variables")
+    
+    # Calcular la matriz de correlación
+    correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr()
+    
+    # Crear el mapa de calor con Plotly
+    fig = go.Figure(
+        data=go.Heatmap(
+            z=correlacion.values,
+            x=correlacion.columns,
+            y=correlacion.columns,
+            colorscale='YlOrRd',  # Paleta de colores cálidos
+            colorbar=dict(title="Correlación", tickvals=[-1, 0, 1], ticktext=["-1", "0", "1"])
         )
-        plt.title('Mapa de Calor de Correlación', fontsize=20, color='#FF5A5F', weight='bold')
-        st.pyplot(plt.gcf())
+    )
+    
+    # Configuración de layout
+    fig.update_layout(
+        title_text='Mapa de Calor de Correlación',
+        title_x=0.5,
+        font=dict(color='#4a4a4a'),
+        title_font=dict(size=20, color='#FF5A5F', family="Arial"),
+        xaxis=dict(tickangle=-45),
+        yaxis=dict(autorange="reversed"),
+        width=600,
+        height=600
+    )
+    
+    # Mostrar el gráfico en Streamlit
+    st.plotly_chart(fig)
+
 
 
     # Mostrar gráfico seleccionado
