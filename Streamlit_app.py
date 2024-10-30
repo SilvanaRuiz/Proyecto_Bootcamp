@@ -300,6 +300,7 @@ def analis_exploratorio(ciudad_seleccionada):
 
     # Gráfico 3D Interactivo
     def plot_3d():
+        df_ciudad.drop(columns= 'Unnamed: 0', inplace=True)
         st.header("Gráfico 3D Interactivo")
         x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('rating'))
         y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('price'))
