@@ -122,3 +122,7 @@ pip install -r requirementos.txt
 #### Ejecuta la aplicación con Streamlit:
 
 python -m streamlit run Streamlit_26.py
+
+### Acceder a la aplicación
+https://proyectobootcampairbnb.streamlit.app/
+Para evitar descargas, puedes acceder directamente a la aplicación copiando este enlace o buscando en Streamlit: **Análisis de Mercado de Airbn**.
