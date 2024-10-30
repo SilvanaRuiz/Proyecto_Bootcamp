@@ -128,7 +128,7 @@ def inicio():
 # Sección combinada de bienvenida y descripción de la app
     st.markdown("""
     <div style='background-color: #f5f5f5; padding: 30px; border-radius: 12px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);'>
-        <h2 style='color: ##FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
+        <h2 style='color: #FF5A5F;  text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
         <p style='color: #424242; text-align: center; font-size: 16px; margin-top: 10px;'>Esta aplicación fue creada como proyecto fin de bootcamp de Hackaboss.</p>
         <p style='color: #424242; font-size: 15px; margin-top: 20px; line-height: 1.6;'>Con esta herramienta, podrás realizar un análisis exhaustivo del mercado de Airbnb, incluyendo:</p>
         <ul style='color: #424242; font-size: 15px; padding-left: 20px; line-height: 1.8;'>
@@ -324,7 +324,7 @@ def analisis_resenas(ciudad_seleccionada):
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
     mostrando el título de cada Airbnb individualmente con sus tablas respectivas.
     """
-    st.markdown("<h1 style='text-align: center; color: #ab47bc;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
     
     st.markdown("""
     <div style='display: flex; justify-content: center;'>
@@ -422,7 +422,7 @@ def analisis_resenas(ciudad_seleccionada):
 
 def modelo_prediccion(ciudad_seleccionada):
     # Encabezado principal 
-    st.markdown("<h1 style='text-align: center; color: #ab47bc;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: #7B7D7D;'>Obtén una estimación del rango de precios para tu alojamiento</h3>", unsafe_allow_html=True)
     
 
