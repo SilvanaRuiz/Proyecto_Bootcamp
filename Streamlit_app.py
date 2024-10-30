@@ -319,22 +319,22 @@ def analis_exploratorio(ciudad_seleccionada):
 
     # Función para gráfico de correlación 
     def correlacion():
-    df_ciudad.drop(columns='Unnamed: 0', inplace=True)
-    st.header("Mapa de Calor de Correlación entre Variables")
-
-    # Calcular la matriz de correlación
-    correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr().round(2)
-
-    # Crear el mapa de calor con Plotly
-    fig = go.Figure(
-        data=go.Heatmap(
-            z=correlacion.values,
-            x=correlacion.columns,
-            y=correlacion.columns,
-            colorscale='Peach',  # Paleta cálida tipo "Peach" de Plotly
-            colorbar=dict(title="Correlación")
+        df_ciudad.drop(columns='Unnamed: 0', inplace=True)
+        st.header("Mapa de Calor de Correlación entre Variables")
+    
+        # Calcular la matriz de correlación
+        correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr().round(2)
+    
+        # Crear el mapa de calor con Plotly
+        fig = go.Figure(
+            data=go.Heatmap(
+                z=correlacion.values,
+                x=correlacion.columns,
+                y=correlacion.columns,
+                colorscale='Peach',  # Paleta cálida tipo "Peach" de Plotly
+                colorbar=dict(title="Correlación")
+            )
         )
-    )
 
     # Agregar anotaciones para mostrar los valores de correlación
     for i in range(len(correlacion.columns)):
