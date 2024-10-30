@@ -336,32 +336,32 @@ def analis_exploratorio(ciudad_seleccionada):
             )
         )
 
-    # Agregar anotaciones para mostrar los valores de correlación
-    for i in range(len(correlacion.columns)):
-        for j in range(len(correlacion.columns)):
-            fig.add_annotation(
-                x=correlacion.columns[i],
-                y=correlacion.columns[j],
-                text=str(correlacion.values[i][j]),
-                showarrow=False,
-                font=dict(color="black", size=12)
-            )
-
-    # Configuración de layout sin título
-    fig.update_layout(
-        font=dict(color='#4a4a4a'),
-        xaxis=dict(tickangle=-45),
-        yaxis=dict(autorange="reversed"),
-        width=800,  # Aumentar el tamaño del gráfico
-        height=800
-    )
-
-    # Crear una columna para centrar el gráfico con la columna central más grande
-    with st.container():
-        col1, col2, col3 = st.columns([0.5, 3, 0.5])  # Columnas con el medio más ancho
-        with col2:
-            st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
+        # Agregar anotaciones para mostrar los valores de correlación
+        for i in range(len(correlacion.columns)):
+            for j in range(len(correlacion.columns)):
+                fig.add_annotation(
+                    x=correlacion.columns[i],
+                    y=correlacion.columns[j],
+                    text=str(correlacion.values[i][j]),
+                    showarrow=False,
+                    font=dict(color="black", size=12)
+                )
     
+        # Configuración de layout sin título
+        fig.update_layout(
+            font=dict(color='#4a4a4a'),
+            xaxis=dict(tickangle=-45),
+            yaxis=dict(autorange="reversed"),
+            width=800,  # Aumentar el tamaño del gráfico
+            height=800
+        )
+    
+        # Crear una columna para centrar el gráfico con la columna central más grande
+        with st.container():
+            col1, col2, col3 = st.columns([0.5, 3, 0.5])  # Columnas con el medio más ancho
+            with col2:
+                st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
+        
   
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
