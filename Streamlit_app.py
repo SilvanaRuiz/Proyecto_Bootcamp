@@ -350,7 +350,6 @@ def analis_exploratorio(ciudad_seleccionada):
     
         # Configuración de layout para hacer el gráfico más grande y centrado
         fig.update_layout(
-            title_x=0.5,
             font=dict(color='#4a4a4a'),
             title_font=dict(size=20, color='#FF5A5F', family="Arial"),
             xaxis=dict(tickangle=-45),
@@ -361,7 +360,7 @@ def analis_exploratorio(ciudad_seleccionada):
     
         # Crear una columna para centrar el gráfico
         with st.container():
-            col1, col2, col3 = st.columns([1, 2, 1])  # Columnas de diferente ancho
+            col1, col2, col3 = st.columns([0.5, 3, 0.5])  # Columnas de diferente ancho
             with col2:
                 st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
     # Mostrar gráfico seleccionado
