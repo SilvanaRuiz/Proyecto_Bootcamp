@@ -437,7 +437,7 @@ def analisis_resenas_3(ciudad_seleccionada):
         )
 
         # Botón dentro de la tarjeta para desplegar detalles
-        if st.button(f"Mostrar información de {row['title']}", key=f"btn_{idx}"):
+        if st.button(f"Mostrar información", key=f"btn_{idx}"):
             # Tabla de calificación y predicción
             tabla_pred = pd.DataFrame({
                 "Rating Real": [row['Valor Real']],
