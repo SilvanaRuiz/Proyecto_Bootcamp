@@ -122,6 +122,8 @@ def obtener_imagen_ciudad(city):
     else:
         st.write("Error al conectarse a la API de Unsplash.")
         return None
+import streamlit as st
+
 def inicio():
     # Sección del logo y título
     st.markdown(
@@ -153,6 +155,7 @@ def inicio():
         """,
         unsafe_allow_html=True
     )
+
 
 def dashboard(df_limpio,ciudad_seleccionada):
 
