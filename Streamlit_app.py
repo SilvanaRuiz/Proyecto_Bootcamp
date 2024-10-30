@@ -287,7 +287,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[1]:
         st.header("Distribución de Precio")
         st.markdown("Este gráfico muestra la distribución de los precios, resaltando la media para ver la tendencia general.")
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(8, 4))
         sns.histplot(df_ciudad['price'], kde=True, bins=20, color=palette[3], edgecolor='black')
         mean_price = df_ciudad['price'].mean()
         plt.axvline(mean_price, color=palette[1], linestyle='--', lw=2)
@@ -300,7 +300,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[2]:
         st.header("Distribución de Precio por Tipo de Anfitrión")
         st.markdown("Este gráfico ilustra la variación de precios por categoría de anfitrión, destacando la dispersión de precios en cada tipo.")
-        plt.figure(figsize=(10, 7))
+        plt.figure(figsize=(8, 4))
         sns.violinplot(x='type_host', y='price', data=df_ciudad, inner=None, palette=palette)
         sns.swarmplot(x='type_host', y='price', data=df_ciudad, color='black', alpha=0.6)
         plt.title('Distribución de Precio por Tipo de Anfitrión', fontsize=18, weight='bold', color=palette[1])
@@ -312,7 +312,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[3]:
         st.header("Relación entre Precio y Calificación")
         st.markdown("Este gráfico hexbin muestra la relación entre el precio y la calificación de los alojamientos.")
-        plt.figure(figsize=(10, 7))
+        plt.figure(figsize=(8, 4))
         plt.hexbin(df_ciudad['price'], df_ciudad['rating'], gridsize=30, cmap='YlGnBu', mincnt=1)
         plt.colorbar(label='Frecuencia')
         plt.title('Relación entre Precio y Calificación', fontsize=18, weight='bold')
@@ -324,7 +324,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[4]:
         st.header("Distribución del Tiempo de Hospedaje")
         st.markdown("Este gráfico presenta la distribución de tiempo de hospedaje, con una línea que marca la mediana.")
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(8, 4))
         sns.histplot(df_ciudad['hosting_time'], kde=True, bins=20, color=palette[4], edgecolor='black')
         median_time = df_ciudad['hosting_time'].median()
         plt.axvline(median_time, color=palette[1], linestyle='--', lw=2)
@@ -337,7 +337,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[5]:
         st.header("Relación entre Tiempo de Hospedaje y Precio")
         st.markdown("Este gráfico muestra cómo se relaciona el tiempo de experiencia del anfitrión con el precio.")
-        plt.figure(figsize=(10, 7))
+        plt.figure(figsize=(8, 4))
         sns.regplot(x='hosting_time', y='price', data=df_ciudad, scatter_kws={'color': palette[5]}, line_kws={'color': 'crimson'}, ci=95)
         plt.title('Relación entre Tiempo de Hospedaje y Precio', fontsize=18, weight='bold', color='crimson')
         plt.xlabel('Tiempo de Hospedaje (Meses)', fontsize=14)
@@ -348,7 +348,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[6]:
         st.header("Mapa de Calor de Correlación entre Variables Numéricas")
         st.markdown("Este heatmap muestra la correlación entre las distintas variables numéricas del conjunto de datos.")
-        plt.figure(figsize=(12, 10))
+        plt.figure(figsize=(8, 4))
         sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr(), annot=True, cmap='coolwarm', linewidths=0.5, fmt=".2f")
         plt.title('Mapa de Calor de Correlación', fontsize=20, weight='bold')
         st.pyplot(plt.gcf())
