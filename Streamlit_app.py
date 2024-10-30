@@ -128,7 +128,7 @@ def inicio():
 # Sección combinada de bienvenida y descripción de la app
     st.markdown("""
     <div style='background-color: #f5f5f5; padding: 30px; border-radius: 12px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);'>
-        <h2 style='color: #ab47bc; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
+        <h2 style='color: ##FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Descubre el Potencial de Airbnb en Tu Ciudad</h2>
         <p style='color: #424242; text-align: center; font-size: 16px; margin-top: 10px;'>Esta aplicación fue creada como proyecto fin de bootcamp de Hackaboss.</p>
         <p style='color: #424242; font-size: 15px; margin-top: 20px; line-height: 1.6;'>Con esta herramienta, podrás realizar un análisis exhaustivo del mercado de Airbnb, incluyendo:</p>
         <ul style='color: #424242; font-size: 15px; padding-left: 20px; line-height: 1.8;'>
@@ -171,7 +171,7 @@ def dashboard(df_limpio,ciudad_seleccionada):
         # Contenedor principal del Dashboard en la columna derecha
         st.markdown("""
             <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
-                <h2 style='color: #ab47bc; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Resumen de Datos de Airbnb</h2>
+                <h2 style='color: #FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Resumen de Datos de Airbnb</h2>
                 <p style='color: #4a4a4a;'>Visualiza los principales indicadores de Airbnb en la ciudad seleccionada para tener una visión general del mercado.</p>
             </div>
             """, unsafe_allow_html=True)
@@ -203,7 +203,7 @@ def dashboard(df_limpio,ciudad_seleccionada):
     # Explicación sobre el proceso de Web Scraping
     st.markdown("""
     <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
-        <h2 style='color: #ab47bc; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Actualización de Datos mediante Web Scraping</h2>
+        <h2 style='color: ##FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Actualización de Datos mediante Web Scraping</h2>
         <p style='color: #4a4a4a; line-height: 1.6;'>
             Dado que el proceso de web scraping puede llevar más de 2 horas debido a la cantidad de datos que se recopilan, no ha sido posible incluirlo directamente en esta aplicación.
         </p>
@@ -225,10 +225,9 @@ def dashboard(df_limpio,ciudad_seleccionada):
 
 def analis_exploratorio(ciudad_seleccionada):
     # Configuración de estilos
-    sns.set(style="whitegrid")  # Fondo claro
 
     # Título
-    st.markdown("<h1 style='text-align: center; color: #ab47bc;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: ##FF5A5F;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
 
     # Filtrar el DataFrame por la ciudad seleccionada
     df_ciudad = df_limpio[df_limpio['city'] == ciudad_seleccionada]
