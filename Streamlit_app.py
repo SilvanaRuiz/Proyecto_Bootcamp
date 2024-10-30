@@ -33,14 +33,14 @@ st.set_page_config(page_title="Airbnb Insights", page_icon="🏠", layout='wide'
 st.markdown(
     """
     <style>
-    /* Fondo de la barra lateral en lavanda claro */
+    /* Fondo de la barra lateral en color salmón con transparencia */
     .stSidebar {
-        background-color: #FF5A5F !important;
+        background-color: rgba(255, 90, 95, 0.7) !important;
     }
+    </style>
     """,
     unsafe_allow_html=True
 )
-
 try:
     # Intentar cargar el archivo CSV
     df = pd.read_csv('objetos/Airbnb.csv')
