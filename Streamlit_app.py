@@ -470,13 +470,32 @@ def analisis_resenas(ciudad_seleccionada):
             })
             st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 def analisis_resenas_2(ciudad_seleccionada):
-    """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
-    con la imagen de la ciudad a la izquierda y el nombre de los alojamientos a la derecha.
-    Al hacer clic en un alojamiento, muestra los detalles debajo.
+    mostrando el título de cada Airbnb individualmente con sus tablas respectivas.
     """
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
-
+    
+    st.markdown("""
+    <div style='display: flex; justify-content: center;'>
+        <p style='color: #ff9800; font-size: 16px; display: flex; align-items: center;'>
+            <span style='font-size: 20px;'>⚠️</span>
+            <span style='margin-left: 10px;'>Nota: Los resultados presentados se han calculado previamente para optimizar el rendimiento de la aplicación.</span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Caja gris para la descripción de la sección
+    st.markdown("""
+        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
+           <h2 style='text-align: center; color: #333333; font-weight: bold;'>Exploración de Opiniones y Valoraciones de Usuarios</h2>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                En esta sección, podrás explorar en profundidad el análisis de reseñas de usuarios en Airbnb. Utilizando técnicas de <b>análisis de sentimiento</b>, hemos evaluado las opiniones y valoraciones de los huéspedes en función de sus comentarios.
+            </p>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                Nuestro enfoque se centra en comparar las calificaciones de los alojamientos con los resultados del análisis de sentimiento de las reseñas. De esta manera, puedes visualizar la alineación (o discrepancia) entre las opiniones textuales de los huéspedes y las puntuaciones que otorgan. 
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
     # Extraer los datos
     predicciones_df = extraer_datos_y_unir_2()
 
