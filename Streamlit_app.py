@@ -359,24 +359,11 @@ def analis_exploratorio(ciudad_seleccionada):
             height=800
         )
     
-        # CSS para centrar el gráfico
-        st.markdown(
-            """
-            <style>
-            .centered {
-                display: flex;
-                justify-content: center;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-    
-        # Crear un div centrado para el gráfico
-        st.markdown("<div class='centered'>", unsafe_allow_html=True)
-        st.plotly_chart(fig)
-        st.markdown("</div>", unsafe_allow_html=True)
-
+        # Crear una columna para centrar el gráfico
+        with st.container():
+            col1, col2, col3 = st.columns([1, 2, 1])  # Columnas de diferente ancho
+            with col2:
+                st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
         plot_3d()
