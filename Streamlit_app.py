@@ -24,6 +24,7 @@ import pickle
 import zipfile
 from code.limpieza import limpiezadedatos
 from scipy import stats
+import plotly.graph_objects as go
 
 
 # Configurar la página
