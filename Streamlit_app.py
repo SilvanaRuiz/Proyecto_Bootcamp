@@ -417,60 +417,54 @@ def analisis_resenas_3(ciudad_seleccionada):
         </div>
     """, unsafe_allow_html=True)
 
-    # Extraer los datos
-    predicciones_df = extraer_datos_y_unir_2()
-
-    # Filtrar el DataFrame por ciudad seleccionada
-    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(2)  # Puedes ajustar el número de resultados
+    # Ejemplo de datos
+    predicciones_df = pd.DataFrame({
+        "title": ["Oceanside Getaway", "Muir Beach's Haiku House with Dramatic Ocean Views"],
+        "city": [ciudad_seleccionada, ciudad_seleccionada],
+        "Valor Real": [4.5, 4.7],
+        "Predicción": [4.3, 4.8],
+        "price": [150, 200],
+        "type_host": ["Superhost", "Host"],
+        "number_reviews": [120, 80],
+        "number_guest": [4, 6],
+        "number_bedroom": [2, 3],
+        "number_beds": [2, 3],
+        "type_bathroom": ["private", "shared"],
+        "number_bathroom": [1, 2]
+    })
 
     # Título para los alojamientos
     st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
-    alojamiento_seleccionado = None  # Variable para almacenar el alojamiento seleccionado
 
     # Mostrar los alojamientos en estilo de tarjeta
-    for idx, row in df_ciudad.iterrows():
-        if st.button(row['title']):
-            alojamiento_seleccionado = row  # Actualizar el alojamiento seleccionado
+    for idx, row in predicciones_df.iterrows():
+        with st.expander(f"{row['title']} - Ubicación: {ciudad_seleccionada}"):
+            # Botón dentro de la tarjeta para desplegar detalles
+            if st.button(f"Mostrar información de {row['title']}", key=f"btn_{idx}"):
+                # Tabla de calificación y predicción
+                tabla_pred = pd.DataFrame({
+                    "Rating Real": [row['Valor Real']],
+                    "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
+                })
+                st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
+                st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
 
-        st.markdown(
-            f"""
-            <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
-                <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
-                <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
-            </div>
-            """, unsafe_allow_html=True
-        )
+                # Modificación del tipo de baño
+                tipo_bano = "Privado" if row['type_bathroom'] == "private" else "Compartido"
 
-    # Mostrar detalles del alojamiento seleccionado
-    if alojamiento_seleccionado is not None:
-        st.markdown("<hr style='margin-top: 20px; margin-bottom: 20px;'>", unsafe_allow_html=True)
-        st.markdown(f"<h3 style='text-align: center;'>{alojamiento_seleccionado['title']}</h3>", unsafe_allow_html=True)
-
-        # Tabla de calificación y predicción
-        tabla_pred = pd.DataFrame({
-            "Rating Real": [alojamiento_seleccionado['Valor Real']],
-            "Predicción Análisis de Sentimiento": [round(alojamiento_seleccionado['Predicción'], 2)]
-        })
-        st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
-        st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
-
-        # Modificación del tipo de baño
-        tipo_bano = "Privado" if alojamiento_seleccionado['type_bathroom'] == "private" else "Compartido"
-
-        # Tabla de características del alojamiento con el tipo de baño modificado
-        tabla_caracteristicas = pd.DataFrame({
-            "Precio": [f"€{int(alojamiento_seleccionado['price'])}"],
-            "Tipo de Huésped": ["👤 Superhost" if alojamiento_seleccionado['type_host'] == "Superhost" else "👤 Host"],
-            "Número de Reseñas": [int(alojamiento_seleccionado['number_reviews'])],
-            "Número de Huéspedes": [f"👥 {int(alojamiento_seleccionado['number_guest'])}"],
-            "Número de Habitaciones": [f"🛌 {int(alojamiento_seleccionado['number_bedroom'])}"],
-            "Número de Camas": [f"🛏️ {int(alojamiento_seleccionado['number_beds'])}"],
-            "Tipo de Baño": [tipo_bano],
-            "Número de Baños": [f"🚽 {int(alojamiento_seleccionado['number_bathroom'])}"]
-        })
-        st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
-        st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
-
+                # Tabla de características del alojamiento con el tipo de baño modificado
+                tabla_caracteristicas = pd.DataFrame({
+                    "Precio": [f"€{int(row['price'])}"],
+                    "Tipo de Huésped": ["👤 Superhost" if row['type_host'] == "Superhost" else "👤 Host"],
+                    "Número de Reseñas": [int(row['number_reviews'])],
+                    "Número de Huéspedes": [f"👥 {int(row['number_guest'])}"],
+                    "Número de Habitaciones": [f"🛌 {int(row['number_bedroom'])}"],
+                    "Número de Camas": [f"🛏️ {int(row['number_beds'])}"],
+                    "Tipo de Baño": [tipo_bano],
+                    "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
+                })
+                st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
+                st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
 
 
