@@ -227,7 +227,7 @@ def analis_exploratorio(ciudad_seleccionada):
     # Configuración de estilos
 
     # Título
-    st.markdown("<h1 style='text-align: center; color: ##FF5A5F;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
 
     # Filtrar el DataFrame por la ciudad seleccionada
     df_ciudad = df_limpio[df_limpio['city'] == ciudad_seleccionada]
@@ -248,13 +248,13 @@ def analis_exploratorio(ciudad_seleccionada):
     </div>
     """, unsafe_allow_html=True)
 
-    # Opciones de gráficos y paleta de colores
+    # Opciones de gráficos y selección
     chart_options = ["Distribución de Calificación", "Distribución de Precio", "Precio por Tipo de Anfitrión",
-                     "Relación Precio-Calificación", "Tiempo de Hospedaje", "3D Interactivo"]
-    palette = ['#16C6F5', '#FFD700', '#FF69B4', '#7CFC00']
-
-    # Selector de gráficos
+                     "Relación Precio-Calificación", "Tiempo de Hospedaje", "3D Interactivo", "Mapa de Correlación"]
     selected_chart = st.selectbox("Selecciona el gráfico que deseas ver:", chart_options)
+
+    # Paleta de colores futurista
+    palette = ['#16C6F5', '#FFD700', '#FF69B4', '#7CFC00']
 
     # Función para gráficos 2D
     def plot_chart(chart_type):
@@ -276,15 +276,16 @@ def analis_exploratorio(ciudad_seleccionada):
 
         elif chart_type == "Precio por Tipo de Anfitrión":
             st.header("Distribución de Precio por Tipo de Anfitrión")
-            fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all", 
+            fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all",
                             title="Distribución de Precio por Tipo de Anfitrión", color_discrete_sequence=[palette[3]])
             fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio", title_x=0.5)
             st.plotly_chart(fig)
 
         elif chart_type == "Relación Precio-Calificación":
             st.header("Relación entre Precio y Calificación")
-            fig = px.density_heatmap(df_ciudad, x='price', y='rating', title="Relación entre Precio y Calificación",
-                                     color_continuous_scale='Plasma')
+            fig = px.scatter(df_ciudad, x='price', y='rating', title="Relación entre Precio y Calificación",
+                             color='type_host', hover_data=['number_reviews', 'hosting_time'], 
+                             color_continuous_scale='Viridis')
             fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación", title_x=0.5)
             st.plotly_chart(fig)
 
@@ -299,7 +300,6 @@ def analis_exploratorio(ciudad_seleccionada):
 
     # Gráfico 3D Interactivo
     def plot_3d():
-        df_ciudad.drop(columns= 'Unnamed: 0', inplace=True)
         st.header("Gráfico 3D Interactivo")
         x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('rating'))
         y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('price'))
@@ -311,11 +311,24 @@ def analis_exploratorio(ciudad_seleccionada):
                             title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
         st.plotly_chart(fig)
 
+    # Función para gráfico de correlación
+    def correlacion():
+        st.header("Mapa de Calor de Correlación entre Variables")
+        plt.figure(figsize=(12, 10))
+        sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr(), annot=True, 
+                    cmap='cool', linewidths=0.5, fmt=".2f", cbar_kws={'label': 'Correlación'})
+        plt.title('Mapa de Calor de Correlación', fontsize=20, color='black', weight='bold')
+        st.pyplot(plt.gcf())
+
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
         plot_3d()
+    elif selected_chart == "Mapa de Correlación":
+        correlacion()
     else:
         plot_chart(selected_chart)
+
+           
 
 
 
