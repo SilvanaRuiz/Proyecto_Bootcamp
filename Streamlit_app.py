@@ -360,7 +360,17 @@ def analis_exploratorio(ciudad_seleccionada):
         )
         
         # Mostrar el gráfico en Streamlit
+        st.markdown(
+            """
+            <div style='display: flex; justify-content: center;'>
+                <div style='width: 800px;'>
+            """, unsafe_allow_html=True
+        )
+        
         st.plotly_chart(fig)
+        
+        st.markdown("</div></div>", unsafe_allow_html=True)  
+           
 
 
 
