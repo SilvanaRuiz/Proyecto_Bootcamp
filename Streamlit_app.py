@@ -233,12 +233,6 @@ def dashboard(df_limpio,ciudad_seleccionada):
             mime="text/x-python"  # MIME específico para archivos .ipynb
         )
 
-
-import streamlit as st
-import plotly.express as px
-import seaborn as sns
-import matplotlib.pyplot as plt
-
 def analis_exploratorio(ciudad_seleccionada):
     # Configuración de estilos
 
@@ -324,18 +318,18 @@ def analis_exploratorio(ciudad_seleccionada):
 
     # Función para gráfico de correlación 
     def correlacion():
-    st.header("Mapa de Calor de Correlación entre Variables")
-    plt.figure(figsize=(8, 4))
-    sns.heatmap(
-        df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr(), 
-        annot=True, 
-        cmap="YlOrRd",  # Cambiado a una paleta cálida
-        linewidths=0.5, 
-        fmt=".2f", 
-        cbar_kws={'label': 'Correlación'}
-    )
-    plt.title('Mapa de Calor de Correlación', fontsize=20, color='#FF5A5F', weight='bold')
-    st.pyplot(plt.gcf())
+        st.header("Mapa de Calor de Correlación entre Variables")
+        plt.figure(figsize=(8, 4))
+        sns.heatmap(
+            df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr(), 
+            annot=True, 
+            cmap="YlOrRd",  # Cambiado a una paleta cálida
+            linewidths=0.5, 
+            fmt=".2f", 
+            cbar_kws={'label': 'Correlación'}
+        )
+        plt.title('Mapa de Calor de Correlación', fontsize=20, color='#FF5A5F', weight='bold')
+        st.pyplot(plt.gcf())
 
 
     # Mostrar gráfico seleccionado
