@@ -126,8 +126,8 @@ def inicio():
     st.markdown(
     """
     <div style='text-align: center;'>
-        <img src='https://upload.wikimedia.org/wikipedia/commons/a/a4/Airbnb_Logo_Bélo.svg' alt='Airbnb Logo' width='50'/>
-        <h1 style='display: inline; color: #FF5A5F;'>Bienvenido a Airbnb Insights</h1>
+        <img src='https://1000marcas.net/wp-content/uploads/2020/01/Airbnb-Logo.png' alt='Airbnb Logo' width='60'/>
+        <h1 style='display: inline; color: #FF5A5F; font-weight: bold;'>Bienvenido a Airbnb Insights</h1>
     </div>
     """,
     unsafe_allow_html=True
