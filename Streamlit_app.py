@@ -25,6 +25,7 @@ import zipfile
 from code.limpieza import limpiezadedatos
 from scipy import stats
 
+
 # Configurar la página
 st.set_page_config(page_title="Airbnb Insights", page_icon="🏠", layout='wide')
 
@@ -221,21 +222,13 @@ def dashboard(df_limpio,ciudad_seleccionada):
             mime="text/x-python"  # MIME específico para archivos .ipynb
         )
 
-def analis_exploratorio(ciudad_seleccionada):
 
+def analis_exploratorio(ciudad_seleccionada):
     # Configuración de estilos
     sns.set(style="whitegrid")  # Fondo claro
-   
 
     # Título
     st.markdown("<h1 style='text-align: center; color: #ab47bc;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
-
-
-    # Selector de ciudad
-    #ciudades = df_limpio['city'].unique().tolist()
-    #st.sidebar.title("🏙️ Selecciona una ciudad")
-    #ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
-
 
     # Filtrar el DataFrame por la ciudad seleccionada
     df_ciudad = df_limpio[df_limpio['city'] == ciudad_seleccionada]
@@ -245,113 +238,85 @@ def analis_exploratorio(ciudad_seleccionada):
     <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
         <h2 style='text-align: center; color: #333333; font-weight: bold;'>Información General</h2>
         <p style='color: #4a4a4a; line-height: 1.6;'>
-            
-Esta sección te permite explorar información sobre los alojamientos de Airbnb mediante gráficos que analizan distintos aspectos del mercado en la ciudad seleccionada.
+            Esta sección te permite explorar información sobre los alojamientos de Airbnb mediante gráficos que analizan distintos aspectos del mercado en la ciudad seleccionada.
         </p>
         <p style='color: #4a4a4a; line-height: 1.6;'>
             <b>Histogramas y gráficos de barras:</b> Estos gráficos revelan la distribución de valores en cada variable, facilitando la identificación de distribuciones normales, sesgos, valores atípicos y asimetrías.
         </p>
         <p style='color: #4a4a4a; line-height: 1.6;'>
             <b>Gráficos de calor:</b> Visualizan la relación entre variables mediante colores, facilitando la detección de patrones, correlaciones y tendencias en los datos.
-""", unsafe_allow_html=True)
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-    #######################################################################
+    # Opciones de gráficos y paleta de colores
+    chart_options = ["Distribución de Calificación", "Distribución de Precio", "Precio por Tipo de Anfitrión",
+                     "Relación Precio-Calificación", "Tiempo de Hospedaje", "3D Interactivo"]
+    palette = ['#16C6F5', '#FFD700', '#FF69B4', '#7CFC00']
 
-    # Nueva paleta de colores
-    palette = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F', '#EDC948']
+    # Selector de gráficos
+    selected_chart = st.selectbox("Selecciona el gráfico que deseas ver:", chart_options)
 
-    # Crear pestañas para los gráficos
-    tabs = st.tabs([
-        "Distribución de Calificación",
-        "Distribución de Precio",
-        "Distribución de Precio por Tipo de Anfitrión",
-        "Relación entre Precio y Calificación",
-        "Distribución del Tiempo de Hospedaje",
-        "Relación entre Tiempo de Hospedaje y Precio",
-        "Mapa de Calor de Correlación entre Variables"
-    ])
+    # Función para gráficos 2D
+    def plot_chart(chart_type):
+        if chart_type == "Distribución de Calificación":
+            st.header("Distribución de Calificación")
+            fig = px.histogram(df_ciudad, x='rating', nbins=20, title='Distribución de Calificación',
+                               color_discrete_sequence=[palette[0]])
+            fig.update_layout(xaxis_title="Calificación", yaxis_title="Frecuencia", title_x=0.5)
+            st.plotly_chart(fig)
 
-    # Distribución de Calificación
-    with tabs[0]:
-        st.header("Distribución de Calificación")
-        st.markdown("Este gráfico muestra la distribución de las calificaciones de los alojamientos en la plataforma.")
-        plt.figure(figsize=(8, 4))
-        sns.histplot(df_ciudad['rating'], kde=True, bins=20, color=palette[2], edgecolor='black')
-        sns.kdeplot(df_ciudad['rating'], color=palette[1], lw=2.5)
-        plt.title('Distribución de Calificación', fontsize=18, weight='bold', color=palette[2])
-        plt.xlabel('Rating', fontsize=14)
-        plt.ylabel('Frecuencia', fontsize=14)
-        st.pyplot(plt.gcf())
+        elif chart_type == "Distribución de Precio":
+            st.header("Distribución de Precio")
+            fig = px.histogram(df_ciudad, x='price', nbins=20, title='Distribución de Precio',
+                               color_discrete_sequence=[palette[1]])
+            fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[2], 
+                          annotation_text="Media", annotation_position="top right")
+            fig.update_layout(xaxis_title="Precio", yaxis_title="Frecuencia", title_x=0.5)
+            st.plotly_chart(fig)
 
-    # Distribución de Precio
-    with tabs[1]:
-        st.header("Distribución de Precio")
-        st.markdown("Este gráfico muestra la distribución de los precios, resaltando la media para ver la tendencia general.")
-        plt.figure(figsize=(8, 4))
-        sns.histplot(df_ciudad['price'], kde=True, bins=20, color=palette[3], edgecolor='black')
-        mean_price = df_ciudad['price'].mean()
-        plt.axvline(mean_price, color=palette[1], linestyle='--', lw=2)
-        plt.title('Distribución de Precio', fontsize=18, weight='bold', color=palette[3])
-        plt.xlabel('Precio', fontsize=14)
-        plt.ylabel('Frecuencia', fontsize=14)
-        st.pyplot(plt.gcf())
+        elif chart_type == "Precio por Tipo de Anfitrión":
+            st.header("Distribución de Precio por Tipo de Anfitrión")
+            fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all", 
+                            title="Distribución de Precio por Tipo de Anfitrión", color_discrete_sequence=[palette[3]])
+            fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio", title_x=0.5)
+            st.plotly_chart(fig)
 
-    # Distribución de Precio por Tipo de Anfitrión
-    with tabs[2]:
-        st.header("Distribución de Precio por Tipo de Anfitrión")
-        st.markdown("Este gráfico ilustra la variación de precios por categoría de anfitrión, destacando la dispersión de precios en cada tipo.")
-        plt.figure(figsize=(8, 4))
-        sns.violinplot(x='type_host', y='price', data=df_ciudad, inner=None, palette=palette)
-        sns.swarmplot(x='type_host', y='price', data=df_ciudad, color='black', alpha=0.6)
-        plt.title('Distribución de Precio por Tipo de Anfitrión', fontsize=18, weight='bold', color=palette[1])
-        plt.xlabel('Tipo de Anfitrión', fontsize=14)
-        plt.ylabel('Precio', fontsize=14)
-        st.pyplot(plt.gcf())
+        elif chart_type == "Relación Precio-Calificación":
+            st.header("Relación entre Precio y Calificación")
+            fig = px.density_heatmap(df_ciudad, x='price', y='rating', title="Relación entre Precio y Calificación",
+                                     color_continuous_scale='Plasma')
+            fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación", title_x=0.5)
+            st.plotly_chart(fig)
 
-    # Relación entre Precio y Calificación
-    with tabs[3]:
-        st.header("Relación entre Precio y Calificación")
-        st.markdown("Este gráfico hexbin muestra la relación entre el precio y la calificación de los alojamientos.")
-        plt.figure(figsize=(8, 4))
-        plt.hexbin(df_ciudad['price'], df_ciudad['rating'], gridsize=30, cmap='YlGnBu', mincnt=1)
-        plt.colorbar(label='Frecuencia')
-        plt.title('Relación entre Precio y Calificación', fontsize=18, weight='bold')
-        plt.xlabel('Precio', fontsize=14)
-        plt.ylabel('Calificación', fontsize=14)
-        st.pyplot(plt.gcf())
+        elif chart_type == "Tiempo de Hospedaje":
+            st.header("Distribución del Tiempo de Hospedaje")
+            fig = px.histogram(df_ciudad, x='hosting_time', nbins=20, title='Distribución del Tiempo de Hospedaje',
+                               color_discrete_sequence=[palette[2]])
+            fig.add_vline(x=df_ciudad['hosting_time'].median(), line_dash="dash", line_color="red", 
+                          annotation_text="Mediana", annotation_position="top right")
+            fig.update_layout(xaxis_title="Años de Hospedaje", yaxis_title="Frecuencia", title_x=0.5)
+            st.plotly_chart(fig)
 
-    # Distribución del Tiempo de Hospedaje
-    with tabs[4]:
-        st.header("Distribución del Tiempo de Hospedaje")
-        st.markdown("Este gráfico presenta la distribución de tiempo de hospedaje, con una línea que marca la mediana.")
-        plt.figure(figsize=(8, 4))
-        sns.histplot(df_ciudad['hosting_time'], kde=True, bins=20, color=palette[4], edgecolor='black')
-        median_time = df_ciudad['hosting_time'].median()
-        plt.axvline(median_time, color=palette[1], linestyle='--', lw=2)
-        plt.title('Distribución del Tiempo de Hospedaje', fontsize=18, weight='bold', color=palette[4])
-        plt.xlabel('Meses de Hospedaje', fontsize=14)
-        plt.ylabel('Frecuencia', fontsize=14)
-        st.pyplot(plt.gcf())
+    # Gráfico 3D Interactivo
+    def plot_3d():
+        st.header("Gráfico 3D Interactivo")
+        x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('rating'))
+        y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('price'))
+        z_axis = st.selectbox("Selecciona el eje Z:", df_ciudad.columns, index=list(df_ciudad.columns).index('number_reviews'))
+        color_option = st.selectbox("Selecciona la variable de color:", df_ciudad.columns)
 
-    # Relación entre Tiempo de Hospedaje y Precio
-    with tabs[5]:
-        st.header("Relación entre Tiempo de Hospedaje y Precio")
-        st.markdown("Este gráfico muestra cómo se relaciona el tiempo de experiencia del anfitrión con el precio.")
-        plt.figure(figsize=(8, 4))
-        sns.regplot(x='hosting_time', y='price', data=df_ciudad, scatter_kws={'color': palette[5]}, line_kws={'color': 'crimson'}, ci=95)
-        plt.title('Relación entre Tiempo de Hospedaje y Precio', fontsize=18, weight='bold', color='crimson')
-        plt.xlabel('Tiempo de Hospedaje (Meses)', fontsize=14)
-        plt.ylabel('Precio', fontsize=14)
-        st.pyplot(plt.gcf())
+        fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option,
+                            size_max=18, opacity=0.8, color_continuous_scale='Viridis',
+                            title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
+        st.plotly_chart(fig)
 
-    # Mapa de Calor de Correlación entre Variables
-    with tabs[6]:
-        st.header("Mapa de Calor de Correlación entre Variables Numéricas")
-        st.markdown("Este heatmap muestra la correlación entre las distintas variables numéricas del conjunto de datos.")
-        plt.figure(figsize=(8, 4))
-        sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr(), annot=True, cmap='coolwarm', linewidths=0.5, fmt=".2f")
-        plt.title('Mapa de Calor', fontsize=20, weight='bold')
-        st.pyplot(plt.gcf())
+    # Mostrar gráfico seleccionado
+    if selected_chart == "3D Interactivo":
+        plot_3d()
+    else:
+        plot_chart(selected_chart)
+
 
 
 def analisis_resenas(ciudad_seleccionada):
