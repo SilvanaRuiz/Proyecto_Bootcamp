@@ -122,7 +122,6 @@ def obtener_imagen_ciudad(city):
     else:
         st.write("Error al conectarse a la API de Unsplash.")
         return None
-import streamlit as st
 
 def inicio():
     # Sección del logo y título
