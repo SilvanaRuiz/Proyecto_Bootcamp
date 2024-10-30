@@ -275,7 +275,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
     with tabs[0]:
         st.header("Distribución de Calificación")
         st.markdown("Este gráfico muestra la distribución de las calificaciones de los alojamientos en la plataforma.")
-        plt.figure(figsize=(10, 6))
+        plt.figure(figsize=(8, 4))
         sns.histplot(df_ciudad['rating'], kde=True, bins=20, color=palette[2], edgecolor='black')
         sns.kdeplot(df_ciudad['rating'], color=palette[1], lw=2.5)
         plt.title('Distribución de Calificación', fontsize=18, weight='bold', color=palette[2])
