@@ -203,7 +203,7 @@ def dashboard(df_limpio,ciudad_seleccionada):
     # Explicación sobre el proceso de Web Scraping
     st.markdown("""
     <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
-        <h2 style='color: ##FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Actualización de Datos mediante Web Scraping</h2>
+        <h2 style='color: #FF5A5F; text-align: center; font-family: Arial, sans-serif; font-weight: bold;'>Actualización de Datos mediante Web Scraping</h2>
         <p style='color: #4a4a4a; line-height: 1.6;'>
             Dado que el proceso de web scraping puede llevar más de 2 horas debido a la cantidad de datos que se recopilan, no ha sido posible incluirlo directamente en esta aplicación.
         </p>
