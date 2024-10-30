@@ -452,7 +452,7 @@ def analisis_resenas(ciudad_seleccionada):
             # Tabla de calificación y predicción (sin índice usando HTML directo)
             tabla_pred = pd.DataFrame({
                 "Rating Real": [row['Valor Real']],
-                "Predicción NLP": [row['Predicción']]
+                "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
             })
             st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
 
