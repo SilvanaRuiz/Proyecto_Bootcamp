@@ -234,6 +234,11 @@ def dashboard(df_limpio,ciudad_seleccionada):
         )
 
 
+import streamlit as st
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 def analis_exploratorio(ciudad_seleccionada):
     # Configuración de estilos
 
@@ -250,12 +255,6 @@ def analis_exploratorio(ciudad_seleccionada):
         <p style='color: #4a4a4a; line-height: 1.6;'>
             Esta sección te permite explorar información sobre los alojamientos de Airbnb mediante gráficos que analizan distintos aspectos del mercado en la ciudad seleccionada.
         </p>
-        <p style='color: #4a4a4a; line-height: 1.6;'>
-            <b>Histogramas y gráficos de barras:</b> Estos gráficos revelan la distribución de valores en cada variable, facilitando la identificación de distribuciones normales, sesgos, valores atípicos y asimetrías.
-        </p>
-        <p style='color: #4a4a4a; line-height: 1.6;'>
-            <b>Gráficos de calor:</b> Visualizan la relación entre variables mediante colores, facilitando la detección de patrones, correlaciones y tendencias en los datos.
-        </p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -264,8 +263,8 @@ def analis_exploratorio(ciudad_seleccionada):
                      "Relación Precio-Calificación", "Tiempo de Hospedaje", "3D Interactivo", "Mapa de Correlación"]
     selected_chart = st.selectbox("Selecciona el gráfico que deseas ver:", chart_options)
 
-    # Paleta de colores futurista
-    palette = ['#16C6F5', '#FFD700', '#FF69B4', '#7CFC00']
+    # Paleta de colores personalizada
+    palette = ['#FF5A5F', '#FFB6B9', '#FF9AA2', '#F5F5F5']
 
     # Función para gráficos 2D
     def plot_chart(chart_type):
@@ -280,7 +279,7 @@ def analis_exploratorio(ciudad_seleccionada):
             st.header("Distribución de Precio")
             fig = px.histogram(df_ciudad, x='price', nbins=20, title='Distribución de Precio',
                                color_discrete_sequence=[palette[1]])
-            fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[2], 
+            fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[0], 
                           annotation_text="Media", annotation_position="top right")
             fig.update_layout(xaxis_title="Precio", yaxis_title="Frecuencia", title_x=0.5)
             st.plotly_chart(fig)
@@ -288,7 +287,7 @@ def analis_exploratorio(ciudad_seleccionada):
         elif chart_type == "Precio por Tipo de Anfitrión":
             st.header("Distribución de Precio por Tipo de Anfitrión")
             fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all",
-                            title="Distribución de Precio por Tipo de Anfitrión", color_discrete_sequence=[palette[3]])
+                            title="Distribución de Precio por Tipo de Anfitrión", color_discrete_sequence=[palette[2]])
             fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio", title_x=0.5)
             st.plotly_chart(fig)
 
@@ -296,7 +295,7 @@ def analis_exploratorio(ciudad_seleccionada):
             st.header("Relación entre Precio y Calificación")
             fig = px.scatter(df_ciudad, x='price', y='rating', title="Relación entre Precio y Calificación",
                              color='type_host', hover_data=['number_reviews', 'hosting_time'], 
-                             color_continuous_scale='Viridis')
+                             color_continuous_scale=px.colors.sequential.Peach)
             fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación", title_x=0.5)
             st.plotly_chart(fig)
 
@@ -319,7 +318,7 @@ def analis_exploratorio(ciudad_seleccionada):
         color_option = st.selectbox("Selecciona la variable de color:", df_ciudad.columns)
 
         fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option,
-                            size_max=18, opacity=0.8, color_continuous_scale='Viridis',
+                            size_max=18, opacity=0.8, color_continuous_scale=px.colors.sequential.Peach,
                             title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
         st.plotly_chart(fig)
 
@@ -328,8 +327,8 @@ def analis_exploratorio(ciudad_seleccionada):
         st.header("Mapa de Calor de Correlación entre Variables")
         plt.figure(figsize=(12, 10))
         sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr(), annot=True, 
-                    cmap='cool', linewidths=0.5, fmt=".2f", cbar_kws={'label': 'Correlación'})
-        plt.title('Mapa de Calor de Correlación', fontsize=20, color='black', weight='bold')
+                    cmap="coolwarm", linewidths=0.5, fmt=".2f", cbar_kws={'label': 'Correlación'})
+        plt.title('Mapa de Calor de Correlación', fontsize=20, color='#FF5A5F', weight='bold')
         st.pyplot(plt.gcf())
 
     # Mostrar gráfico seleccionado
@@ -340,7 +339,6 @@ def analis_exploratorio(ciudad_seleccionada):
     else:
         plot_chart(selected_chart)
 
-           
 
 
 
