@@ -318,48 +318,50 @@ def analis_exploratorio(ciudad_seleccionada):
         st.plotly_chart(fig)
 
     # Función para gráfico de correlación 
-   def correlacion():
-        st.header("Mapa de Calor de Correlación entre Variables")
+    import plotly.graph_objects as go
+
+def correlacion():
+    st.header("Mapa de Calor de Correlación entre Variables")
+
+    # Calcular la matriz de correlación
+    correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr().round(2)
     
-        # Calcular la matriz de correlación
-        correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr().round(2)
-        
-        # Crear el mapa de calor con Plotly
-        fig = go.Figure(
-            data=go.Heatmap(
-                z=correlacion.values,
-                x=correlacion.columns,
-                y=correlacion.columns,
-                colorscale='Peach',  # Paleta cálida tipo "Peach" de Plotly
-                colorbar=dict(title="Correlación")
+    # Crear el mapa de calor con Plotly
+    fig = go.Figure(
+        data=go.Heatmap(
+            z=correlacion.values,
+            x=correlacion.columns,
+            y=correlacion.columns,
+            colorscale='Peach',  # Paleta cálida tipo "Peach" de Plotly
+            colorbar=dict(title="Correlación")
+        )
+    )
+    
+    # Agregar anotaciones para mostrar los valores de correlación
+    for i in range(len(correlacion.columns)):
+        for j in range(len(correlacion.columns)):
+            fig.add_annotation(
+                x=correlacion.columns[i],
+                y=correlacion.columns[j],
+                text=str(correlacion.values[i][j]),
+                showarrow=False,
+                font=dict(color="black", size=12)
             )
-        )
-        
-        # Agregar anotaciones para mostrar los valores de correlación
-        for i in range(len(correlacion.columns)):
-            for j in range(len(correlacion.columns)):
-                fig.add_annotation(
-                    x=correlacion.columns[i],
-                    y=correlacion.columns[j],
-                    text=str(correlacion.values[i][j]),
-                    showarrow=False,
-                    font=dict(color="black", size=12)
-                )
-        
-        # Configuración de layout para hacer el gráfico más grande y centrado
-        fig.update_layout(
-            title_text='Mapa de Calor de Correlación',
-            title_x=0.5,
-            font=dict(color='#4a4a4a'),
-            title_font=dict(size=20, color='#FF5A5F', family="Arial"),
-            xaxis=dict(tickangle=-45),
-            yaxis=dict(autorange="reversed"),
-            width=800,  # Aumentar el tamaño del gráfico
-            height=800
-        )
-        
-        # Mostrar el gráfico en Streamlit
-        st.plotly_chart(fig)
+    
+    # Configuración de layout para hacer el gráfico más grande y centrado
+    fig.update_layout(
+        title_text='Mapa de Calor de Correlación',
+        title_x=0.5,
+        font=dict(color='#4a4a4a'),
+        title_font=dict(size=20, color='#FF5A5F', family="Arial"),
+        xaxis=dict(tickangle=-45),
+        yaxis=dict(autorange="reversed"),
+        width=800,  # Aumentar el tamaño del gráfico
+        height=800
+    )
+    
+    # Mostrar el gráfico en Streamlit
+    st.plotly_chart(fig)
 
 
 
