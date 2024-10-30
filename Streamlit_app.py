@@ -350,7 +350,7 @@ Esta sección te permite explorar información sobre los alojamientos de Airbnb 
         st.markdown("Este heatmap muestra la correlación entre las distintas variables numéricas del conjunto de datos.")
         plt.figure(figsize=(8, 4))
         sns.heatmap(df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr(), annot=True, cmap='coolwarm', linewidths=0.5, fmt=".2f")
-        plt.title('Mapa de Calor de Correlación', fontsize=20, weight='bold')
+        plt.title('Mapa de Calor', fontsize=20, weight='bold')
         st.pyplot(plt.gcf())
 
 
