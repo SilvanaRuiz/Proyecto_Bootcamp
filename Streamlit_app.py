@@ -388,7 +388,7 @@ def create_table_html(data):
     table_html += "</tbody></table>"
     return table_html
 
-def analisis_resenas_2(ciudad_seleccionada):
+def analisis_resenas_3(ciudad_seleccionada):
     """
     Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
     mostrando los alojamientos en estilo de tarjetas y tablas de predicción y características al seleccionar un alojamiento.
