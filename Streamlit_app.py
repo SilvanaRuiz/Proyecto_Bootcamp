@@ -421,7 +421,7 @@ def analisis_resenas_3(ciudad_seleccionada):
     predicciones_df = extraer_datos_y_unir_2()
 
     # Filtrar el DataFrame por ciudad seleccionada
-    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(5)  # Puedes ajustar el número de resultados
+    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(2)  # Puedes ajustar el número de resultados
 
     # Título para los alojamientos
     st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
