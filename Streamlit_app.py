@@ -320,10 +320,11 @@ def analis_exploratorio(ciudad_seleccionada):
     # Función para gráfico de correlación 
     
     def correlacion():
+        df_ciudad.drop(columns='Unnamed: 0', inplace=True)
         st.header("Mapa de Calor de Correlación entre Variables")
     
         # Calcular la matriz de correlación
-        correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price']].corr().round(2)
+        correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite]].corr().round(2)
     
         # Crear el mapa de calor con Plotly
         fig = go.Figure(
@@ -349,7 +350,6 @@ def analis_exploratorio(ciudad_seleccionada):
     
         # Configuración de layout para hacer el gráfico más grande y centrado
         fig.update_layout(
-            title_text='Mapa de Calor de Correlación',
             title_x=0.5,
             font=dict(color='#4a4a4a'),
             title_font=dict(size=20, color='#FF5A5F', family="Arial"),
