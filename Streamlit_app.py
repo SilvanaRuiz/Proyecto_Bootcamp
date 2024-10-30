@@ -35,7 +35,7 @@ st.markdown(
     <style>
     /* Fondo de la barra lateral en lavanda claro */
     .stSidebar {
-        background-color: #E6E6FA !important;
+        background-color: #FF5A5F !important;
     }
     """,
     unsafe_allow_html=True
