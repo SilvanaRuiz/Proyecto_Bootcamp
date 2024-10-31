@@ -519,5 +519,6 @@ def modelo_prediccion(ciudad_seleccionada):
     elif page == "Modelo de Predicción":
         #modelo_prediccion(ciudad_seleccionada)
 
+
 if __name__ == "__main__":
     main()
