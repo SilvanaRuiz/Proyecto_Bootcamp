@@ -235,8 +235,6 @@ def dashboard(df_limpio,ciudad_seleccionada):
         )
 
 def analis_exploratorio(ciudad_seleccionada):
-    # Configuración de estilos
-
     # Título
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Visualización de Datos de Airbnb</h1>", unsafe_allow_html=True)
 
@@ -255,7 +253,7 @@ def analis_exploratorio(ciudad_seleccionada):
 
     # Opciones de gráficos y selección
     chart_options = ["Distribución de Calificación", "Distribución de Precio", "Precio por Tipo de Anfitrión",
-                     "Relación Precio-Calificación", "Tiempo de Hospedaje", "3D Interactivo", "Mapa de Correlación"]
+                     "Relación Precio-Calificación", "Tiempo de Hospedaje", "Mapa de Correlación", "3D Interactivo"]
     selected_chart = st.selectbox("Selecciona el gráfico que deseas ver:", chart_options)
 
     # Paleta de colores personalizada
@@ -265,81 +263,74 @@ def analis_exploratorio(ciudad_seleccionada):
     def plot_chart(chart_type):
         if chart_type == "Distribución de Calificación":
             st.header("Distribución de Calificación")
-            fig = px.histogram(df_ciudad, x='rating', nbins=20, title='Distribución de Calificación',
-                               color_discrete_sequence=[palette[0]])
+            st.write("Este gráfico muestra la distribución de las calificaciones que reciben los alojamientos. Nos permite identificar la frecuencia de distintas calificaciones y observar la tendencia general de satisfacción de los huéspedes.")
+            fig = px.histogram(df_ciudad, x='rating', nbins=20, color_discrete_sequence=[palette[0]])
             fig.update_layout(xaxis_title="Calificación", yaxis_title="Frecuencia", title_x=0.5)
             st.plotly_chart(fig)
-
+    
         elif chart_type == "Distribución de Precio":
             st.header("Distribución de Precio")
-            fig = px.histogram(df_ciudad, x='price', nbins=20, title='Distribución de Precio',
-                               color_discrete_sequence=[palette[1]])
-            fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[0], 
-                          annotation_text="Media", annotation_position="top right")
+            st.write("Este gráfico ilustra cómo se distribuyen los precios de los alojamientos en la ciudad. La línea punteada representa la media, ayudando a visualizar los precios predominantes y el rango de variación.")
+            fig = px.histogram(df_ciudad, x='price', nbins=20, color_discrete_sequence=[palette[1]])
+            fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[0], annotation_text="Media", annotation_position="top right")
             fig.update_layout(xaxis_title="Precio", yaxis_title="Frecuencia", title_x=0.5)
             st.plotly_chart(fig)
-
+    
         elif chart_type == "Precio por Tipo de Anfitrión":
             st.header("Distribución de Precio por Tipo de Anfitrión")
-            fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all",
-                            title="Distribución de Precio por Tipo de Anfitrión", color_discrete_sequence=[palette[2]])
+            st.write("Aquí se muestra la variación de precios entre los distintos tipos de anfitriones. Es útil para entender si algunos tipos de anfitriones tienden a cobrar precios más altos o bajos.")
+            fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all", color_discrete_sequence=[palette[2]])
             fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio", title_x=0.5)
             st.plotly_chart(fig)
-
+    
         elif chart_type == "Relación Precio-Calificación":
             st.header("Relación entre Precio y Calificación")
-            fig = px.scatter(df_ciudad, x='price', y='rating', title="Relación entre Precio y Calificación",
-                             color='type_host', hover_data=['number_reviews', 'hosting_time'], 
-                             color_continuous_scale=px.colors.sequential.Peach)
+            st.write("Este gráfico explora la relación entre el precio y la calificación de cada alojamiento, categorizado por tipo de anfitrión. Nos ayuda a identificar si los alojamientos más caros suelen tener mejores calificaciones.")
+            fig = px.scatter(df_ciudad, x='price', y='rating', color='type_host', hover_data=['number_reviews', 'hosting_time'], color_continuous_scale=px.colors.sequential.Peach)
             fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación", title_x=0.5)
             st.plotly_chart(fig)
-
+    
         elif chart_type == "Tiempo de Hospedaje":
             st.header("Distribución del Tiempo de Hospedaje")
-            fig = px.histogram(df_ciudad, x='hosting_time', nbins=20, title='Distribución del Tiempo de Hospedaje',
-                               color_discrete_sequence=[palette[2]])
-            fig.add_vline(x=df_ciudad['hosting_time'].median(), line_dash="dash", line_color="red", 
-                          annotation_text="Mediana", annotation_position="top right")
+            st.write("Este gráfico muestra la distribución del tiempo que los anfitriones han estado ofreciendo hospedaje. La línea punteada representa la mediana, lo cual facilita ver qué tan experimentados suelen ser los anfitriones.")
+            fig = px.histogram(df_ciudad, x='hosting_time', nbins=20, color_discrete_sequence=[palette[2]])
+            fig.add_vline(x=df_ciudad['hosting_time'].median(), line_dash="dash", line_color="red", annotation_text="Mediana", annotation_position="top right")
             fig.update_layout(xaxis_title="Años de Hospedaje", yaxis_title="Frecuencia", title_x=0.5)
             st.plotly_chart(fig)
-
+    
     # Gráfico 3D Interactivo
     def plot_3d():
         df_ciudad.drop(columns='Unnamed: 0', inplace=True)
         st.header("Gráfico 3D Interactivo")
+        st.write("Este gráfico 3D interactivo permite visualizar la relación entre tres variables seleccionadas, junto con una variable de color. Facilita el análisis de tendencias y relaciones complejas entre múltiples variables.")
         x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('rating'))
         y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('price'))
         z_axis = st.selectbox("Selecciona el eje Z:", df_ciudad.columns, index=list(df_ciudad.columns).index('number_reviews'))
         color_option = st.selectbox("Selecciona la variable de color:", df_ciudad.columns)
-
-        fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option,
-                            size_max=18, opacity=0.8, color_continuous_scale=px.colors.sequential.Peach,
-                            title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
+    
+        fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option, size_max=18, opacity=0.8, color_continuous_scale=px.colors.sequential.Peach, title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
         st.plotly_chart(fig)
-
+    
+    # Mapa de Calor de Correlación
     def correlacion():
         df_ciudad.drop(columns='Unnamed: 0', inplace=True)
         st.header("Mapa de Calor de Correlación entre Variables")
-    
-        # Calcular la matriz de correlación
+        st.write("Este mapa de calor muestra la correlación entre diferentes variables del dataset. Ayuda a identificar relaciones lineales positivas o negativas entre variables clave, como precio, calificación, y popularidad.")
+        
         correlacion = df_ciudad[['rating', 'number_reviews', 'hosting_time', 'price', 'guest_favorite']].corr().round(2)
-    
-        # Renombrar las columnas al español y con formato solicitado
         correlacion.columns = ['Calificación', 'Número de Reseñas', 'Tiempo de Alojamiento', 'Precio', 'Favorito del Cliente']
-        correlacion.index = correlacion.columns  # Asegura que el índice también tenga estos nombres
+        correlacion.index = correlacion.columns
     
-        # Crear el mapa de calor con Plotly
         fig = go.Figure(
             data=go.Heatmap(
                 z=correlacion.values,
                 x=correlacion.columns,
                 y=correlacion.columns,
-                colorscale='Peach',  # Paleta cálida tipo "Peach" de Plotly
+                colorscale='Peach',
                 colorbar=dict(title="Correlación")
             )
         )
     
-        # Agregar anotaciones para mostrar los valores de correlación
         for i in range(len(correlacion.columns)):
             for j in range(len(correlacion.columns)):
                 fig.add_annotation(
@@ -350,20 +341,18 @@ def analis_exploratorio(ciudad_seleccionada):
                     font=dict(color="black", size=12)
                 )
     
-        # Configuración de layout sin título
         fig.update_layout(
             font=dict(color='#4a4a4a'),
             xaxis=dict(tickangle=-45),
             yaxis=dict(autorange="reversed"),
-            width=800,  # Aumentar el tamaño del gráfico
+            width=800,
             height=800
         )
     
-        # Crear una columna para centrar el gráfico con la columna central más grande
         with st.container():
-            col1, col2, col3 = st.columns([0.5, 3, 0.5])  # Columnas con el medio más ancho
+            col1, col2, col3 = st.columns([0.5, 3, 0.5])  
             with col2:
-                st.plotly_chart(fig, use_container_width=True)  # Gráfico centrado en la columna central
+                st.plotly_chart(fig, use_container_width=True)
   
     # Mostrar gráfico seleccionado
     if selected_chart == "3D Interactivo":
