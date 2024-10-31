@@ -300,17 +300,43 @@ def analis_exploratorio(ciudad_seleccionada):
     
     # Gráfico 3D Interactivo
     def plot_3d():
-        df_ciudad.drop(columns='Unnamed: 0', inplace=True)
+        # Eliminamos las columnas innecesarias
+        df_ciudad.drop(columns=['url', 'id_url', 'unique_id', 'title', 'Unnamed: 0'], inplace=True, errors='ignore')
+    
+        # Diccionario para traducir los nombres de las columnas
+        traduccion_columnas = {
+            'city': 'Ciudad',
+            'guest_favorite': 'Favorito del Cliente',
+            'rating': 'Calificación',
+            'number_reviews': 'Número de Reseñas',
+            'type_host': 'Tipo de Anfitrión',
+            'hosting_time': 'Tiempo de Hospedaje',
+            'price': 'Precio',
+            'all_reviews': 'Reseñas Totales',
+            'number_guest': 'Número de Huéspedes',
+            'number_bedroom': 'Número de Habitaciones',
+            'number_beds': 'Número de Camas'
+        }
+    
+        # Cambiamos los nombres de las columnas en el dataframe
+        df_ciudad.rename(columns=traduccion_columnas, inplace=True)
+    
         st.header("Gráfico 3D Interactivo")
         st.write("Este gráfico 3D interactivo permite visualizar la relación entre tres variables seleccionadas, junto con una variable de color. Facilita el análisis de tendencias y relaciones complejas entre múltiples variables.")
-        x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('rating'))
-        y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('price'))
-        z_axis = st.selectbox("Selecciona el eje Z:", df_ciudad.columns, index=list(df_ciudad.columns).index('number_reviews'))
+    
+        # Configuración de los selectores para los ejes, utilizando los nombres en español
+        x_axis = st.selectbox("Selecciona el eje X:", df_ciudad.columns, index=list(df_ciudad.columns).index('Calificación'))
+        y_axis = st.selectbox("Selecciona el eje Y:", df_ciudad.columns, index=list(df_ciudad.columns).index('Precio'))
+        z_axis = st.selectbox("Selecciona el eje Z:", df_ciudad.columns, index=list(df_ciudad.columns).index('Número de Reseñas'))
         color_option = st.selectbox("Selecciona la variable de color:", df_ciudad.columns)
     
-        fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option, size_max=18, opacity=0.8, color_continuous_scale=px.colors.sequential.Peach, title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
+        # Generación del gráfico 3D
+        fig = px.scatter_3d(df_ciudad, x=x_axis, y=y_axis, z=z_axis, color=color_option,
+                            size_max=18, opacity=0.8, color_continuous_scale=px.colors.sequential.Peach,
+                            title=f'Relación entre {x_axis}, {y_axis}, y {z_axis}')
+        
         st.plotly_chart(fig)
-    
+   
     # Mapa de Calor de Correlación
     def correlacion():
         df_ciudad.drop(columns='Unnamed: 0', inplace=True)
