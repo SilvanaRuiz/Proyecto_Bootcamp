@@ -432,6 +432,10 @@ def modelo_prediccion_sincluster(ciudad_seleccionada):
     # Cargar los percentiles del error absoluto 
     with open('./objetos/percentiles_modelo.pkl', 'rb') as file:
         percentil_inferior, percentil_superior = pickle.load(file)
+    # Cargar el r2
+    with open('./r2.pkl', 'rb') as file:
+        r2 = pickle.load(file)
+    
 
     # Cargar los encoders y columnas
     with open('./objetos/encoder_city.pkl', 'rb') as file:
@@ -489,11 +493,14 @@ def modelo_prediccion_sincluster(ciudad_seleccionada):
 
         # Mostrar resultado
         st.markdown(f"""
-        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
+    <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
         <h3 style='text-align: center; color: #ab47bc;'>Precio estimado: €{prediccion[0]:.2f}</h3>
         <h4 style='text-align: center; color: #7B7D7D;'>Rango de precio estimado para su Airbnb: €{intervalo_inferior:.2f} - €{intervalo_superior:.2f}</h4>
-        </div>
-        """, unsafe_allow_html=True)
+        <h4 style='text-align: center; color: #7B7D7D;'>Precisión del modelo (R²): {r2:.2f}</h4>
+        <p style='text-align: center; color: #7B7D7D; font-size: 14px;'>Un R² de {r2:.2f} indica el nivel de ajuste del modelo a los datos, donde 1 representa un ajuste perfecto.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
 def modelo_prediccion_2(ciudad_seleccionada):
     # Encabezado principal
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
