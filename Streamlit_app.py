@@ -405,88 +405,10 @@ def create_table_html(data):
     table_html += "</tbody></table>"
     return table_html
 
-def analisis_resenas(ciudad_seleccionada):
-    """
-    Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
-    mostrando los alojamientos en estilo de tarjetas y tablas de predicción y características al seleccionar un alojamiento.
-    """
-    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div style='display: flex; justify-content: center;'>
-        <p style='color: #ff9800; font-size: 16px; display: flex; align-items: center;'>
-            <span style='font-size: 20px;'>⚠️</span>
-            <span style='margin-left: 10px;'>Nota: Los resultados presentados se han calculado previamente para optimizar el rendimiento de la aplicación.</span>
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Caja gris para la descripción de la sección
-    st.markdown("""
-        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
-           <h2 style='text-align: center; color: #333333; font-weight: bold;'>Exploración de Opiniones y Valoraciones de Usuarios</h2>
-            <p style='color: #4a4a4a; line-height: 1.6;'>
-                En esta sección, podrás explorar en profundidad el análisis de reseñas de usuarios en Airbnb. Utilizando técnicas de <b>análisis de sentimiento</b>, hemos evaluado las opiniones y valoraciones de los huéspedes en función de sus comentarios.
-            </p>
-            <p style='color: #4a4a4a; line-height: 1.6;'>
-                Nuestro enfoque se centra en comparar las calificaciones de los alojamientos con los resultados del análisis de sentimiento de las reseñas. De esta manera, puedes visualizar la alineación (o discrepancia) entre las opiniones textuales de los huéspedes y las puntuaciones que otorgan. 
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # Extraer los datos usando la función original
-    predicciones_df = extraer_datos_y_unir_2()
-
-    # Filtrar el DataFrame por ciudad seleccionada
-    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(3)  # Puedes ajustar el número de resultados
-
-    # Título para los alojamientos
-    st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
-
-    # Mostrar los alojamientos en estilo de tarjeta
-    for idx, row in df_ciudad.iterrows():
-        st.markdown(
-            f"""
-            <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
-                <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
-                <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
-            </div>
-            """, unsafe_allow_html=True
-        )
-
-        # Botón dentro de la tarjeta para desplegar detalles
-        if st.button(f"Mostrar información", key=f"btn_{idx}"):
-            # Tabla de calificación y predicción
-            tabla_pred = pd.DataFrame({
-                "Rating Real": [row['Valor Real']],
-                "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
-            })
-            st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
-            st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
-
-            # Modificación del tipo de baño
-            tipo_bano = "Privado" if row['type_bathroom'] == "private" else "Compartido"
-
-            # Tabla de características del alojamiento con el tipo de baño modificado
-            tabla_caracteristicas = pd.DataFrame({
-                "Precio": [f"€{int(row['price'])}"],
-                "Tipo de Huésped": ["👤 Superhost" if row['type_host'] == "Superhost" else "👤 Host"],
-                "Número de Reseñas": [int(row['number_reviews'])],
-                "Número de Huéspedes": [f"👥 {int(row['number_guest'])}"],
-                "Número de Habitaciones": [f"🛌 {int(row['number_bedroom'])}"],
-                "Número de Camas": [f"🛏️ {int(row['number_beds'])}"],
-                "Tipo de Baño": [tipo_bano],
-                "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
-            })
-            st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
-            st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
-
-
-def modelo_prediccion(ciudad_seleccionada):
-    # Encabezado principal 
+def modelo_prediccion_sincluster(ciudad_seleccionada):
+    # Encabezado principal
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: #7B7D7D;'>Obtén una estimación del rango de precios para tu alojamiento</h3>", unsafe_allow_html=True)
-    
 
     st.markdown("""
         <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
@@ -495,33 +417,21 @@ def modelo_prediccion(ciudad_seleccionada):
                 Esta sección permite estimar el rango de precios de alojamientos en función de características específicas (como ciudad, tipo de baño, número de habitaciones y capacidad de huéspedes). Utiliza técnicas de <b>aprendizaje automático</b> para analizar los datos históricos de Airbnb y, a través de modelos de clasificación y regresión, determina patrones y relaciones en las características de los alojamientos.
             </p>
             <p style='color: #4a4a4a; line-height: 1.6;'>
-                Primero, asigna cada alojamiento a un clúster específico para reflejar mejor sus características y, luego, aplica un modelo de regresión optimizado para estimar el precio y su rango probable. Esto permite obtener una predicción más precisa y personalizada para cada alojamiento, asegurando que el precio esté alineado con la competencia local.
+               Para hacer la predicción, se emplean modelos de regresión supervisados pre-entrenados que estiman tanto el precio de cada alojamiento como su posible variación. Esta metodología permite generar predicciones precisas y personalizadas, ajustando el precio de manera óptima según las características específicas de cada alojamiento y asegurando su competitividad en el mercado local.
             </p>
         </div>
         """, unsafe_allow_html=True)
-    
-    # Texto de instrucciones con margen superior para mayor separación
+
     st.markdown("<p style='color: #7B7D7D; margin-top: 20px;'>Completa los detalles de tu alojamiento para obtener una estimación de precio.</p>", unsafe_allow_html=True)
     
-    # Cargar el modelo de clasificación entrenado
-    with open('./objetos/modelo_clasificacion.pkl', 'rb') as file:
-        modelo_clasificacion = pickle.load(file)
     
-    # Cargar los modelos de regresión entrenados para cada clúster
-    with open('./objetos/modelo_c0.pkl', 'rb') as file:
-        modelo_c0 = pickle.load(file)
-    with open('./objetos/modelo_c1.pkl', 'rb') as file:
-        modelo_c1 = pickle.load(file)
-    with open('./objetos/modelo_c2.pkl', 'rb') as file:
-        modelo_c2 = pickle.load(file)
-    
-    # Cargar los percentiles del error absoluto para cada modelo
-    with open('./objetos/percentiles_modelo0.pkl', 'rb') as file:
-        percentil_inferior0, percentil_superior0 = pickle.load(file)
-    with open('./objetos/percentiles_modelo1.pkl', 'rb') as file:
-        percentil_inferior1, percentil_superior1 = pickle.load(file)
-    with open('./objetos/percentiles_modelo2.pkl', 'rb') as file:
-        percentil_inferior2, percentil_superior2 = pickle.load(file)
+    # Cargar el modelo de regresión entrenados para cada clúster
+    with open('./objetos/modelo.pkl', 'rb') as file:
+        modelo = pickle.load(file)
+  
+    # Cargar los percentiles del error absoluto 
+    with open('./objetos/percentiles_modelo.pkl', 'rb') as file:
+        percentil_inferior, percentil_superior = pickle.load(file)
 
     # Cargar los encoders y columnas
     with open('./objetos/encoder_city.pkl', 'rb') as file:
@@ -535,32 +445,32 @@ def modelo_prediccion(ciudad_seleccionada):
     with open('./objetos/columnas_X.pkl', 'rb') as file:
         columnas_X = pickle.load(file)
 
-   
-   
-    # Seleccionar las ciudades desde el DataFrame
-    #ciudades = df['city'].unique()
-    #st.sidebar.title("🏙️ Selecciona una ciudad")
-    #ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
-    #city = st.selectbox("📍 Ciudad", ciudades, help="Selecciona la ciudad de tu alojamiento")
-    type_bathroom = st.selectbox("🛁 Tipo de baño", ["private", "shared"], help="Selecciona el tipo de baño")
+
+    # Campos de entrada
+    type_bathroom = st.selectbox("🛁 Tipo de baño", ["Privado", "Compartido"], help="Selecciona el tipo de baño")
     number_bedroom = st.number_input("🛌 Número de habitaciones", min_value=0, step=1, help="Especifica la cantidad de habitaciones")
     number_beds = st.number_input("🛏️ Número de camas", min_value=0, step=1, help="Especifica el número de camas disponibles")
     number_guest = st.number_input("👥 Número de huéspedes", min_value=1, step=1, help="Indica la capacidad máxima de huéspedes")
     
-    # Espacio visual y botón estilizado
+    # Mostrar ciudad seleccionada debajo del número de huéspedes
+    st.write(f"📍 Ciudad seleccionada: {ciudad_seleccionada}")
+
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("📊 Calcular Rango de Precios"):
-        # Crear un DataFrame con los datos del usuario
+        # Transformación para el tipo de baño a valores compatibles con el modelo
+        type_bathroom_value = "private" if type_bathroom == "Privado" else "shared"
+
+        # Crear DataFrame para el modelo
         nuevos_datos = {
             "city": [ciudad_seleccionada],
-            "type_bathroom": [type_bathroom],
+            "type_bathroom": [type_bathroom_value],
             "number_bedroom": [number_bedroom],
             "number_beds": [number_beds],
             "number_guest": [number_guest]
         }
         df_nuevos_datos = pd.DataFrame(nuevos_datos)
 
-        # Aplicar las transformaciones de One-Hot Encoding
+        # Aplicar transformaciones de One-Hot Encoding
         city_encoded = encoder_city.transform(df_nuevos_datos[['city']]).toarray()
         city_df = pd.DataFrame(city_encoded, columns=city_columns)
         
@@ -571,36 +481,13 @@ def modelo_prediccion(ciudad_seleccionada):
         df_nuevos_datos = pd.concat([df_nuevos_datos.reset_index(drop=True), city_df, bathroom_df], axis=1)
         df_nuevos_datos = df_nuevos_datos.reindex(columns=columnas_X, fill_value=0)
 
-        # **Paso 1**: Predecir el clúster usando el modelo de clasificación
-        cluster_predicho = modelo_clasificacion.predict(df_nuevos_datos)[0]
-        
-        # **Paso 2**: Seleccionar el modelo de regresión adecuado y sus percentiles
-        if cluster_predicho == 0:
-            modelo_regresion = modelo_c0
-            percentil_superior = percentil_superior0
-            percentil_inferior = percentil_inferior0
-        elif cluster_predicho == 1:
-            modelo_regresion = modelo_c1
-            percentil_superior = percentil_superior1
-            percentil_inferior = percentil_inferior1
-        elif cluster_predicho == 2:
-            modelo_regresion = modelo_c2
-            percentil_superior = percentil_superior2
-            percentil_inferior = percentil_inferior2
-        else:
-            st.error("Error: Clúster predicho no válido.")
-            return  # Salir de la función si el clúster no es válido
 
-        # **Paso 3**: Realizar la predicción con el modelo de regresión
+        # Realizar predicción
         prediccion = modelo_regresion.predict(df_nuevos_datos)
-
-        # Calcular el rango de precios usando los percentiles
         intervalo_inferior = prediccion[0] - percentil_superior
         intervalo_superior = prediccion[0] + percentil_superior
 
-        # Mostrar el resultado 
-    
-        
+        # Mostrar resultado
         st.markdown(f"""
         <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
         <h3 style='text-align: center; color: #ab47bc;'>Precio estimado: €{prediccion[0]:.2f}</h3>
