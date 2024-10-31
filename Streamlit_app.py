@@ -433,7 +433,7 @@ def modelo_prediccion_sincluster(ciudad_seleccionada):
     with open('./objetos/percentiles_modelo.pkl', 'rb') as file:
         percentil_inferior, percentil_superior = pickle.load(file)
     # Cargar el r2
-    with open('./r2.pkl', 'rb') as file:
+    with open('./objetos/r2.pkl', 'rb') as file:
         r2 = pickle.load(file)
     
 
