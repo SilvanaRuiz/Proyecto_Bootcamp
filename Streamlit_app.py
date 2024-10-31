@@ -501,7 +501,35 @@ def modelo_prediccion(ciudad_seleccionada):
         <p style='text-align: center; color: #7B7D7D; font-size: 14px;'>Un R² de {r2:.2f} indica el nivel de ajuste del modelo a los datos, donde 1 representa un ajuste perfecto.</p>
     </div>
     """, unsafe_allow_html=True)
-   
+# Aplicación principal
+def main():
+
+    
+    st.sidebar.title(" 🗺️ Menú de Navegación")  
+    page = st.sidebar.selectbox("Selecciona una sección", ("Inicio","Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
+    st.sidebar.title("🏙️ Selecciona una ciudad")
+    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
+
+     
+    st.sidebar.markdown("### 👥 Equipo")
+    
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
+        unsafe_allow_html=True
+    )
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/steven-hurtado-figueroa-41120974?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Steven Hurtado Figueroa</span></a></div>',
+        unsafe_allow_html=True
+    )
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/israel-mart%C3%ADnez-b5742a138?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Israel Martínez</span></a></div>',
+        unsafe_allow_html=True
+    )
+    
+    st.sidebar.markdown(
+        '<div class="team-member"><a href="https://www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
+        unsafe_allow_html=True
+    )
 
 # Llamar a cada seccion
     if page == "Inicio":
