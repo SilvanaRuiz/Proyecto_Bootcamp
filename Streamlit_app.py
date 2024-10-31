@@ -1,3 +1,4 @@
+#Bibliotecas
 import streamlit as st
 import pandas as pd
 import folium
@@ -405,7 +406,7 @@ def create_table_html(data):
     table_html += "</tbody></table>"
     return table_html
 
-def modelo_prediccion_sincluster(ciudad_seleccionada):
+def modelo_prediccion(ciudad_seleccionada):
     # Encabezado principal
     st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center; color: #7B7D7D;'>Obtén una estimación del rango de precios para tu alojamiento</h3>", unsafe_allow_html=True)
@@ -500,162 +501,9 @@ def modelo_prediccion_sincluster(ciudad_seleccionada):
         <p style='text-align: center; color: #7B7D7D; font-size: 14px;'>Un R² de {r2:.2f} indica el nivel de ajuste del modelo a los datos, donde 1 representa un ajuste perfecto.</p>
     </div>
     """, unsafe_allow_html=True)
-
-def modelo_prediccion_2(ciudad_seleccionada):
-    # Encabezado principal
-    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Modelo de Predicción de Precios de Airbnb</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align: center; color: #7B7D7D;'>Obtén una estimación del rango de precios para tu alojamiento</h3>", unsafe_allow_html=True)
-
-    st.markdown("""
-        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
-            <h2 style='text-align: center;color: #333333; font-weight: bold;'>Estimación de Precios de Alojamientos en Airbnb</h2>
-            <p style='color: #4a4a4a; line-height: 1.6;'>
-                Esta sección permite estimar el rango de precios de alojamientos en función de características específicas (como ciudad, tipo de baño, número de habitaciones y capacidad de huéspedes). Utiliza técnicas de <b>aprendizaje automático</b> para analizar los datos históricos de Airbnb y, a través de modelos de clasificación y regresión, determina patrones y relaciones en las características de los alojamientos.
-            </p>
-            <p style='color: #4a4a4a; line-height: 1.6;'>
-                Primero, asigna cada alojamiento a un clúster específico para reflejar mejor sus características y, luego, aplica un modelo de regresión optimizado para estimar el precio y su rango probable. Esto permite obtener una predicción más precisa y personalizada para cada alojamiento, asegurando que el precio esté alineado con la competencia local.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("<p style='color: #7B7D7D; margin-top: 20px;'>Completa los detalles de tu alojamiento para obtener una estimación de precio.</p>", unsafe_allow_html=True)
-    
-     # Cargar el modelo de clasificación entrenado
-    with open('./objetos/modelo_clasificacion.pkl', 'rb') as file:
-        modelo_clasificacion = pickle.load(file)
-    
-    # Cargar los modelos de regresión entrenados para cada clúster
-    with open('./objetos/modelo_c0.pkl', 'rb') as file:
-        modelo_c0 = pickle.load(file)
-    with open('./objetos/modelo_c1.pkl', 'rb') as file:
-        modelo_c1 = pickle.load(file)
-    with open('./objetos/modelo_c2.pkl', 'rb') as file:
-        modelo_c2 = pickle.load(file)
-    
-    # Cargar los percentiles del error absoluto para cada modelo
-    with open('./objetos/percentiles_modelo0.pkl', 'rb') as file:
-        percentil_inferior0, percentil_superior0 = pickle.load(file)
-    with open('./objetos/percentiles_modelo1.pkl', 'rb') as file:
-        percentil_inferior1, percentil_superior1 = pickle.load(file)
-    with open('./objetos/percentiles_modelo2.pkl', 'rb') as file:
-        percentil_inferior2, percentil_superior2 = pickle.load(file)
-
-    # Cargar los encoders y columnas
-    with open('./objetos/encoder_city.pkl', 'rb') as file:
-        encoder_city = pickle.load(file)
-    with open('./objetos/city_columns.pkl', 'rb') as file:
-        city_columns = pickle.load(file)
-    with open('./objetos/encoder_bathroom.pkl', 'rb') as file:
-        encoder_bathroom = pickle.load(file)
-    with open('./objetos/bathroom_columns.pkl', 'rb') as file:
-        bathroom_columns = pickle.load(file)
-    with open('./objetos/columnas_X.pkl', 'rb') as file:
-        columnas_X = pickle.load(file)
-
-
-    # Campos de entrada
-    type_bathroom = st.selectbox("🛁 Tipo de baño", ["Privado", "Compartido"], help="Selecciona el tipo de baño")
-    number_bedroom = st.number_input("🛌 Número de habitaciones", min_value=0, step=1, help="Especifica la cantidad de habitaciones")
-    number_beds = st.number_input("🛏️ Número de camas", min_value=0, step=1, help="Especifica el número de camas disponibles")
-    number_guest = st.number_input("👥 Número de huéspedes", min_value=1, step=1, help="Indica la capacidad máxima de huéspedes")
-    
-    # Mostrar ciudad seleccionada debajo del número de huéspedes
-    st.write(f"📍 Ciudad seleccionada: {ciudad_seleccionada}")
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("📊 Calcular Rango de Precios"):
-        # Transformación para el tipo de baño a valores compatibles con el modelo
-        type_bathroom_value = "private" if type_bathroom == "Privado" else "shared"
-
-        # Crear DataFrame para el modelo
-        nuevos_datos = {
-            "city": [ciudad_seleccionada],
-            "type_bathroom": [type_bathroom_value],
-            "number_bedroom": [number_bedroom],
-            "number_beds": [number_beds],
-            "number_guest": [number_guest]
-        }
-        df_nuevos_datos = pd.DataFrame(nuevos_datos)
-
-        # Aplicar transformaciones de One-Hot Encoding
-        city_encoded = encoder_city.transform(df_nuevos_datos[['city']]).toarray()
-        city_df = pd.DataFrame(city_encoded, columns=city_columns)
-        
-        bathroom_encoded = encoder_bathroom.transform(df_nuevos_datos[['type_bathroom']]).toarray()
-        bathroom_df = pd.DataFrame(bathroom_encoded, columns=bathroom_columns)
-
-        # Combinar todas las columnas
-        df_nuevos_datos = pd.concat([df_nuevos_datos.reset_index(drop=True), city_df, bathroom_df], axis=1)
-        df_nuevos_datos = df_nuevos_datos.reindex(columns=columnas_X, fill_value=0)
-
-        # Predicción de clúster
-        cluster_predicho = modelo_clasificacion.predict(df_nuevos_datos)[0]
-        
-        # Selección de modelo de regresión y percentiles
-        if cluster_predicho == 0:
-            modelo_regresion = modelo_c0
-            percentil_superior = percentil_superior0
-            percentil_inferior = percentil_inferior0
-        elif cluster_predicho == 1:
-            modelo_regresion = modelo_c1
-            percentil_superior = percentil_superior1
-            percentil_inferior = percentil_inferior1
-        elif cluster_predicho == 2:
-            modelo_regresion = modelo_c2
-            percentil_superior = percentil_superior2
-            percentil_inferior = percentil_inferior2
-        else:
-            st.error("Error: Clúster predicho no válido.")
-            return
-
-        # Realizar predicción
-        prediccion = modelo_regresion.predict(df_nuevos_datos)
-        intervalo_inferior = prediccion[0] - percentil_superior
-        intervalo_superior = prediccion[0] + percentil_superior
-
-        # Mostrar resultado
-        st.markdown(f"""
-        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;'>
-        <h3 style='text-align: center; color: #ab47bc;'>Precio estimado: €{prediccion[0]:.2f}</h3>
-        <h4 style='text-align: center; color: #7B7D7D;'>Rango de precio estimado para su Airbnb: €{intervalo_inferior:.2f} - €{intervalo_superior:.2f}</h4>
-        </div>
-        """, unsafe_allow_html=True)
-
-
-
-# Aplicación principal
-def main():
-
-    
-    st.sidebar.title(" 🗺️ Menú de Navegación")  
-    page = st.sidebar.selectbox("Selecciona una sección", ("Inicio","Dashboard", "Análisis Exploratorio","Análisis de Reseñas", "Modelo de Predicción"))
-    st.sidebar.title("🏙️ Selecciona una ciudad")
-    ciudad_seleccionada = st.sidebar.selectbox("Ciudad", ciudades)
-
-     
-    st.sidebar.markdown("### 👥 Equipo")
-    
-    st.sidebar.markdown(
-        '<div class="team-member"><a href="https://www.linkedin.com/in/ignacio-rodriguez-galicia" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Ignacio Rodríguez Galicia</span></a></div>',
-        unsafe_allow_html=True
-    )
-    st.sidebar.markdown(
-        '<div class="team-member"><a href="https://www.linkedin.com/in/steven-hurtado-figueroa-41120974?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Steven Hurtado Figueroa</span></a></div>',
-        unsafe_allow_html=True
-    )
-    st.sidebar.markdown(
-        '<div class="team-member"><a href="https://www.linkedin.com/in/israel-mart%C3%ADnez-b5742a138?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Israel Martínez</span></a></div>',
-        unsafe_allow_html=True
-    )
-    
-    st.sidebar.markdown(
-        '<div class="team-member"><a href="https://www.linkedin.com/in/silvana-ruiz-medina-922397238" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="linkedin-icon"><span class="member-name">Silvana Ruiz Medina</span></a></div>',
-        unsafe_allow_html=True
-    )
-       
    
 
-# Diseño del Dashboard
+# Llamar a cada seccion
     if page == "Inicio":
         inicio()
         
@@ -669,10 +517,7 @@ def main():
         analisis_resenas(ciudad_seleccionada)
   
     elif page == "Modelo de Predicción":
-        #modelo_prediccion_2(ciudad_seleccionada)
-        modelo_prediccion_sincluster(ciudad_seleccionada)
-
-    
+        #modelo_prediccion(ciudad_seleccionada)
 
 if __name__ == "__main__":
     main()
