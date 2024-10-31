@@ -487,7 +487,7 @@ def modelo_prediccion_sincluster(ciudad_seleccionada):
 
 
         # Realizar predicción
-        prediccion = modelo_regresion.predict(df_nuevos_datos)
+        prediccion = modelo.predict(df_nuevos_datos)
         intervalo_inferior = prediccion[0] - percentil_superior
         intervalo_superior = prediccion[0] + percentil_superior
 
