@@ -48,7 +48,7 @@ El proyecto sigue una estructura modular para una fácil navegación y mantenimi
 │   ├── limpieza.py         # Limpieza y preprocesamiento de datos
 │   ├── scraping.py         # Script de scraping de datos
 │   ├── modelo precio.ipynb # Jupyter notebook para modelado de precios
-│   └── modelo_junto.ipynb  # Jupyter notebook de modelos combinados
+│   └── modelo_nlp.ipynb  # Jupyter notebook de modelos combinados
 │
 ├── Streamlit_26.py         # Código principal de la aplicación en Streamlit
 │
