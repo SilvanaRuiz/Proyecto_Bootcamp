@@ -193,19 +193,19 @@ def dashboard(df_limpio,ciudad_seleccionada):
         st.markdown(f"""
             <div style='display: flex; gap: 20px; margin-top: 20px;'>
                 <div style='flex: 1; background-color: #eaf4fc; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
-                    <h3 style='font-size: 24px; color: #1e3d59;'>🌆 Ciudad Seleccionada</h3>
+                    <h3 style='font-size: 22px; color: #1e3d59;'>🌆 Ciudad Seleccionada</h3>
                     <p style='font-size: 24px; font-weight: bold; color: #1e3d59;'>{ciudad_seleccionada}</p>
                 </div>
                 <div style='flex: 1; background-color: #f9f4f4; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
-                    <h3 style='font-size: 24px;color: #1e3d59;'>🏠 Total de Alojamientos</h3>
+                    <h3 style='font-size: 22px;color: #1e3d59;'>🏠 Total de Alojamientos</h3>
                     <p style='font-size: 24px; font-weight: bold; color: #1e3d59;'>{total_alojamientos}</p>
                 </div>
                 <div style='flex: 1; background-color: #f4f9f4; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
-                    <h3 style='font-size: 24px;color: #1e3d59;'>⭐ Rating Promedio</h3>
+                    <h3 style='font-size: 22px;color: #1e3d59;'>⭐ Rating Promedio</h3>
                     <p style='font-size: 24px; font-weight: bold; color: #1e3d59;'>{mean_rating:.1f}</p>
                 </div>
                 <div style='flex: 1; background-color: #fcf4e4; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);'>
-                    <h3 style='font-size: 24px;color: #1e3d59;'>💶 Precio Promedio</h3>
+                    <h3 style='font-size: 22px;color: #1e3d59;'>💶 Precio Promedio</h3>
                     <p style='font-size: 24px; font-weight: bold; color: #1e3d59;'>€{mean_price:.2f}/noche</p>
                 </div>
             </div>
