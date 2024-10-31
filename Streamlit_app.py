@@ -265,7 +265,7 @@ def analis_exploratorio(ciudad_seleccionada):
             st.header("Distribución de Calificación")
             st.write("Este gráfico muestra la distribución de las calificaciones que reciben los alojamientos. Nos permite identificar la frecuencia de distintas calificaciones y observar la tendencia general de satisfacción de los huéspedes.")
             fig = px.histogram(df_ciudad, x='rating', nbins=20, color_discrete_sequence=[palette[0]])
-            fig.update_layout(xaxis_title="Calificación", yaxis_title="Frecuencia", title_x=0.5)
+            fig.update_layout(xaxis_title="Calificación", yaxis_title="Frecuencia")
             st.plotly_chart(fig)
     
         elif chart_type == "Distribución de Precio":
@@ -273,21 +273,21 @@ def analis_exploratorio(ciudad_seleccionada):
             st.write("Este gráfico ilustra cómo se distribuyen los precios de los alojamientos en la ciudad. La línea punteada representa la media, ayudando a visualizar los precios predominantes y el rango de variación.")
             fig = px.histogram(df_ciudad, x='price', nbins=20, color_discrete_sequence=[palette[1]])
             fig.add_vline(x=df_ciudad['price'].mean(), line_dash="dash", line_color=palette[0], annotation_text="Media", annotation_position="top right")
-            fig.update_layout(xaxis_title="Precio", yaxis_title="Frecuencia", title_x=0.5)
+            fig.update_layout(xaxis_title="Precio", yaxis_title="Frecuencia")
             st.plotly_chart(fig)
     
         elif chart_type == "Precio por Tipo de Anfitrión":
             st.header("Distribución de Precio por Tipo de Anfitrión")
             st.write("Aquí se muestra la variación de precios entre los distintos tipos de anfitriones. Es útil para entender si algunos tipos de anfitriones tienden a cobrar precios más altos o bajos.")
             fig = px.violin(df_ciudad, x='type_host', y='price', box=True, points="all", color_discrete_sequence=[palette[2]])
-            fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio", title_x=0.5)
+            fig.update_layout(xaxis_title="Tipo de Anfitrión", yaxis_title="Precio")
             st.plotly_chart(fig)
     
         elif chart_type == "Relación Precio-Calificación":
             st.header("Relación entre Precio y Calificación")
             st.write("Este gráfico explora la relación entre el precio y la calificación de cada alojamiento, categorizado por tipo de anfitrión. Nos ayuda a identificar si los alojamientos más caros suelen tener mejores calificaciones.")
             fig = px.scatter(df_ciudad, x='price', y='rating', color='type_host', hover_data=['number_reviews', 'hosting_time'], color_continuous_scale=px.colors.sequential.Peach)
-            fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación", title_x=0.5)
+            fig.update_layout(xaxis_title="Precio", yaxis_title="Calificación")
             st.plotly_chart(fig)
     
         elif chart_type == "Tiempo de Hospedaje":
@@ -295,7 +295,7 @@ def analis_exploratorio(ciudad_seleccionada):
             st.write("Este gráfico muestra la distribución del tiempo que los anfitriones han estado ofreciendo hospedaje. La línea punteada representa la mediana, lo cual facilita ver qué tan experimentados suelen ser los anfitriones.")
             fig = px.histogram(df_ciudad, x='hosting_time', nbins=20, color_discrete_sequence=[palette[2]])
             fig.add_vline(x=df_ciudad['hosting_time'].median(), line_dash="dash", line_color="red", annotation_text="Mediana", annotation_position="top right")
-            fig.update_layout(xaxis_title="Años de Hospedaje", yaxis_title="Frecuencia", title_x=0.5)
+            fig.update_layout(xaxis_title="Años de Hospedaje", yaxis_title="Frecuencia")
             st.plotly_chart(fig)
     
     # Gráfico 3D Interactivo
