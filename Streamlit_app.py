@@ -745,7 +745,7 @@ def main():
         analisis_resenas(ciudad_seleccionada)
   
     elif page == "Modelo de Predicción":
-        modelo_prediccion(ciudad_seleccionada)
+        modelo_prediccion_2(ciudad_seleccionada)
 
     
 
