@@ -405,6 +405,81 @@ def create_table_html(data):
         table_html += "</tr>"
     table_html += "</tbody></table>"
     return table_html
+def analisis_resenas(ciudad_seleccionada):
+    """
+    Función para mostrar un análisis de las predicciones frente a los valores reales en Streamlit,
+    mostrando los alojamientos en estilo de tarjetas y tablas de predicción y características al seleccionar un alojamiento.
+    """
+    st.markdown("<h1 style='text-align: center; color: #FF5A5F;'>Análisis de Sentimiento en Reseñas de Airbnb</h1>", unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div style='display: flex; justify-content: center;'>
+        <p style='color: #ff9800; font-size: 16px; display: flex; align-items: center;'>
+            <span style='font-size: 20px;'>⚠️</span>
+            <span style='margin-left: 10px;'>Nota: Los resultados presentados se han calculado previamente para optimizar el rendimiento de la aplicación.</span>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Caja gris para la descripción de la sección
+    st.markdown("""
+        <div style='background-color: #f5f5f5; padding: 20px; border-radius: 12px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;'>
+           <h2 style='text-align: center; color: #333333; font-weight: bold;'>Exploración de Opiniones y Valoraciones de Usuarios</h2>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                En esta sección, podrás explorar en profundidad el análisis de reseñas de usuarios en Airbnb. Utilizando técnicas de <b>análisis de sentimiento</b>, hemos evaluado las opiniones y valoraciones de los huéspedes en función de sus comentarios.
+            </p>
+            <p style='color: #4a4a4a; line-height: 1.6;'>
+                Nuestro enfoque se centra en comparar las calificaciones de los alojamientos con los resultados del análisis de sentimiento de las reseñas. De esta manera, puedes visualizar la alineación (o discrepancia) entre las opiniones textuales de los huéspedes y las puntuaciones que otorgan. 
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # Extraer los datos usando la función original
+    predicciones_df = extraer_datos_y_unir_2()
+
+    # Filtrar el DataFrame por ciudad seleccionada
+    df_ciudad = predicciones_df[predicciones_df['city'] == ciudad_seleccionada].head(3)  # Puedes ajustar el número de resultados
+
+    # Título para los alojamientos
+    st.markdown("<h2 style='color: #333333;'>Alojamientos en la ciudad</h2>", unsafe_allow_html=True)
+
+    # Mostrar los alojamientos en estilo de tarjeta
+    for idx, row in df_ciudad.iterrows():
+        st.markdown(
+            f"""
+            <div style='border: 1px solid #ddd; padding: 15px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px;'>
+                <h4 style='color: #FF5A5F; margin-bottom: 5px;'>{row['title']}</h4>
+                <p style='color: #555;'>Ubicación: {ciudad_seleccionada}</p>
+            </div>
+            """, unsafe_allow_html=True
+        )
+
+        # Botón dentro de la tarjeta para desplegar detalles
+        if st.button(f"Mostrar información", key=f"btn_{idx}"):
+            # Tabla de calificación y predicción
+            tabla_pred = pd.DataFrame({
+                "Rating Real": [row['Valor Real']],
+                "Predicción Análisis de Sentimiento": [round(row['Predicción'], 2)]
+            })
+            st.markdown("<h4 style='text-align: center;'>Calificación y Predicción</h4>", unsafe_allow_html=True)
+            st.markdown(create_table_html(tabla_pred), unsafe_allow_html=True)
+
+            # Modificación del tipo de baño
+            tipo_bano = "Privado" if row['type_bathroom'] == "private" else "Compartido"
+
+            # Tabla de características del alojamiento con el tipo de baño modificado
+            tabla_caracteristicas = pd.DataFrame({
+                "Precio": [f"€{int(row['price'])}"],
+                "Tipo de Huésped": ["👤 Superhost" if row['type_host'] == "Superhost" else "👤 Host"],
+                "Número de Reseñas": [int(row['number_reviews'])],
+                "Número de Huéspedes": [f"👥 {int(row['number_guest'])}"],
+                "Número de Habitaciones": [f"🛌 {int(row['number_bedroom'])}"],
+                "Número de Camas": [f"🛏️ {int(row['number_beds'])}"],
+                "Tipo de Baño": [tipo_bano],
+                "Número de Baños": [f"🚽 {int(row['number_bathroom'])}"]
+            })
+            st.markdown("<h4 style='text-align: center;'>Características del Alojamiento</h4>", unsafe_allow_html=True)
+            st.markdown(create_table_html(tabla_caracteristicas), unsafe_allow_html=True)
 
 def modelo_prediccion(ciudad_seleccionada):
     # Encabezado principal
@@ -501,6 +576,7 @@ def modelo_prediccion(ciudad_seleccionada):
         <p style='text-align: center; color: #7B7D7D; font-size: 14px;'>Un R² de {r2:.2f} indica el nivel de ajuste del modelo a los datos, donde 1 representa un ajuste perfecto.</p>
     </div>
     """, unsafe_allow_html=True)
+        
 # Aplicación principal
 def main():
 
