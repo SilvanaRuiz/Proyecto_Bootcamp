@@ -36,8 +36,9 @@ El proyecto sigue una estructura modular para una fácil navegación y mantenimi
 │   ├── Airbnb.csv.zip      # Archivo comprimido con los datos de Airbnb en formato CSV
 │   ├── bathroom_columns.pkl, city_columns.pkl, columnas_X.pkl  # Archivos de columnas para los modelos
 │   ├── encoder_bathroom.pkl, encoder_city.pkl  # Encoders necesarios para el procesamiento de datos
-│   ├── modelo_c0.pkl, modelo_c1.pkl, modelo_c2.pkl, modelo_clasificacion.pkl  # Modelos de ML en formato .pkl
-│   ├── percentiles_modelo0.pkl, percentiles_modelo1.pkl, percentiles_modelo2.pkl  # Archivos de percentiles para los modelos
+│   ├── modelo.pkl  # Modelo de ML en formato .pkl
+│   ├── percentiles_modelo.pkl # Archivos de percentiles para los modelos
+│   ├── r2.pkl                # Archivo con R2 
 │   └── resultados_nlp.csv   # Archivo CSV con resultados de procesamiento NLP
 │
 ├── code/                   # Contiene scripts y notebooks de desarrollo
