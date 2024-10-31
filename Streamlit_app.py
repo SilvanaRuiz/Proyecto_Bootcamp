@@ -315,7 +315,9 @@ def analis_exploratorio(ciudad_seleccionada):
             'all_reviews': 'Reseñas Totales',
             'number_guest': 'Número de Huéspedes',
             'number_bedroom': 'Número de Habitaciones',
-            'number_beds': 'Número de Camas'
+            'number_beds': 'Número de Camas',
+            'type_bathroom': 'Tipo de Baño',
+            'number_bathroom': 'Número de Baños'
         }
     
         # Cambiamos los nombres de las columnas en el dataframe
