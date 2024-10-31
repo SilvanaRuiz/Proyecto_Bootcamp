@@ -517,7 +517,7 @@ def modelo_prediccion(ciudad_seleccionada):
         analisis_resenas(ciudad_seleccionada)
   
     elif page == "Modelo de Predicción":
-        #modelo_prediccion(ciudad_seleccionada)
+        modelo_prediccion(ciudad_seleccionada)
 
 
 if __name__ == "__main__":
