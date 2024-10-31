@@ -125,5 +125,5 @@ python -m streamlit run Streamlit_26.py
 
 ### Acceder a la aplicación
 
-Para evitar descargas, puedes acceder directamente a la aplicación copiando este enlace o buscando en Streamlit: **Análisis de Mercado de Airbn**.
+Para evitar descargas, puedes acceder directamente a la aplicación copiando el enlace o buscando en Streamlit: **Análisis de Mercado de Airbn**.
 Enlace: *https://proyectobootcampairbnb.streamlit.app/*
